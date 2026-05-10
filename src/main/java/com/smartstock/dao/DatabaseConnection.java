@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     private static final String DB_URL = EnvHelper.get("DB_URL", "jdbc:mysql://localhost:3306/smartstock_erp?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
     private static final String USERNAME = EnvHelper.get("DB_USER", "root");
-    private static final String PASSWORD = EnvHelper.get("DB_PASS", "Kokokoko12@");
+    private static final String PASSWORD = EnvHelper.get("DB_PASS", "sadasd");
     private static HikariDataSource dataSource;
 
     static {
