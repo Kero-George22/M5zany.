@@ -127,6 +127,21 @@ public class WeeklySummaryService {
         return null;
     }
 
+    /**
+     * Returns the text of the most recent weekly summary, or null if none exists.
+     */
+    public String getLastSummaryText() {
+        String sql = "SELECT summary_text FROM weekly_summaries ORDER BY generated_at DESC LIMIT 1";
+        try (Connection conn = com.smartstock.dao.DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) return rs.getString("summary_text");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private void sendAlertToAdmin(String summary) {
         Alert alert = new Alert();
         alert.setType("SYSTEM");

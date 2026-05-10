@@ -363,7 +363,7 @@ public class AdminDashboardController extends VBox {
         topRow.setAlignment(Pos.CENTER_LEFT);
         FontIcon icn = new FontIcon("mdi2c-crosshairs-gps");
         icn.setIconColor(javafx.scene.paint.Color.web("#6366F1"));
-        Label lbl = new Label("INTELLIGENCE FEED");
+        Label lbl = new Label("Weekly Sammary ");
         lbl.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: -text-primary; -fx-letter-spacing: 1px;");
         topRow.getChildren().addAll(icn, lbl);
 
@@ -377,6 +377,16 @@ public class AdminDashboardController extends VBox {
         VBox card = new VBox(14, topRow, summaryArea);
         card.setStyle("-fx-background-color: -card-bg; -fx-background-radius: 12; -fx-padding: 20; -fx-border-color: -card-border; -fx-border-radius: 12; -fx-border-width: 1;");
         parent.getChildren().add(card);
+
+        // Auto-load last saved summary in background
+        new Thread(() -> {
+            String last = weeklySummaryService.getLastSummaryText();
+            Platform.runLater(() -> {
+                if (last != null && !last.isBlank() && summaryArea != null) {
+                    summaryArea.setText(last);
+                }
+            });
+        }).start();
     }
     
     // ═══════════════════════════════════════════════════════════════════════

@@ -31,46 +31,107 @@ public class AIService {
     public String generateWeeklySummary() {
         List<Branch> branches = branchDAO.findAll();
         StringBuilder inventoryData = new StringBuilder();
+        java.time.LocalDate today = java.time.LocalDate.now();
+        java.time.LocalDate soon  = today.plusDays(30);
 
         for (Branch b : branches) {
-            inventoryData.append("Branch: ").append(b.getName()).append("\n");
-            inventoryData.append("  Products count: ").append(b.getProductCount()).append("\n");
-            inventoryData.append("  Total inventory: ").append(b.getTotalQuantity()).append(" units\n");
-            inventoryData.append("  Low stock items: ").append(b.getLowStockCount()).append("\n");
+            inventoryData.append("=== Branch: ").append(b.getName()).append(" ===").append("\n");
+            inventoryData.append("Location: ").append(b.getLocation()).append("\n");
+            inventoryData.append("Total distinct products: ").append(b.getProductCount()).append("\n");
+            inventoryData.append("Total inventory units: ").append(b.getTotalQuantity()).append("\n");
+            inventoryData.append("Low-stock items count: ").append(b.getLowStockCount()).append("\n");
 
+            // Inventory value estimate
+            List<Product> allProducts = productDAO.findByBranchId(b.getId());
+            double totalValue = allProducts.stream()
+                    .mapToDouble(p -> p.getQuantity() * p.getSellingPrice()).sum();
+            inventoryData.append(String.format("Estimated inventory value: %.2f EGP%n", totalValue));
+
+            // Low stock
             List<Product> lowStock = productDAO.findLowStock(b.getId());
             if (!lowStock.isEmpty()) {
-                inventoryData.append("  Low stock products:\n");
+                inventoryData.append("LOW STOCK PRODUCTS (must reorder):\n");
                 for (Product p : lowStock) {
-                    inventoryData.append("    - ").append(p.getName()).append(" (only ").append(p.getQuantity())
-                            .append(" left, min: ").append(p.getMinStock()).append(")\n");
+                    inventoryData.append("  - ").append(p.getName())
+                            .append(" | Current: ").append(p.getQuantity())
+                            .append(" | Min Required: ").append(p.getMinStock())
+                            .append(" | Shortage: ").append(p.getMinStock() - p.getQuantity())
+                            .append(" units\n");
                 }
             }
 
-            List<Product> fastMoving = productDAO.findFastMoving(b.getId(), 0);
-            if (!fastMoving.isEmpty()) {
-                inventoryData.append("  Most selling products:\n");
-                // just top 5
-                for (int i = 0; i < Math.min(5, fastMoving.size()); i++) {
-                    Product p = fastMoving.get(i);
-                    inventoryData.append("    - ").append(p.getName()).append(" (").append(p.getSellingPrice())
-                            .append(" EGP)\n");
+            // Expired / expiring soon
+            java.util.List<Product> expiringSoon = new java.util.ArrayList<>();
+            java.util.List<Product> alreadyExpired = new java.util.ArrayList<>();
+            for (Product p : allProducts) {
+                if (p.getExpiryDate() == null) continue;
+                if (p.getExpiryDate().isBefore(today)) alreadyExpired.add(p);
+                else if (p.getExpiryDate().isBefore(soon)) expiringSoon.add(p);
+            }
+            if (!alreadyExpired.isEmpty()) {
+                inventoryData.append("EXPIRED PRODUCTS (remove immediately):\n");
+                for (Product p : alreadyExpired) {
+                    inventoryData.append("  - ").append(p.getName())
+                            .append(" | Expired: ").append(p.getExpiryDate())
+                            .append(" | Qty: ").append(p.getQuantity()).append("\n");
                 }
             }
-            
+            if (!expiringSoon.isEmpty()) {
+                inventoryData.append("EXPIRING WITHIN 30 DAYS (urgent action needed):\n");
+                for (Product p : expiringSoon) {
+                    long daysLeft = java.time.temporal.ChronoUnit.DAYS.between(today, p.getExpiryDate());
+                    inventoryData.append("  - ").append(p.getName())
+                            .append(" | Expires: ").append(p.getExpiryDate())
+                            .append(" (in ").append(daysLeft).append(" days) | Qty: ").append(p.getQuantity()).append("\n");
+                }
+            }
+
+            // Top selling
+            List<Product> fastMoving = productDAO.findFastMoving(b.getId(), 0);
+            if (!fastMoving.isEmpty()) {
+                inventoryData.append("BEST SELLING PRODUCTS (Top 5):\n");
+                for (int i = 0; i < Math.min(5, fastMoving.size()); i++) {
+                    Product p = fastMoving.get(i);
+                    inventoryData.append("  - ").append(p.getName())
+                            .append(" | Price: ").append(String.format("%.2f", p.getSellingPrice()))
+                            .append(" EGP | Qty: ").append(p.getQuantity()).append("\n");
+                }
+            }
+
+            // Slow selling
             List<Product> slowMoving = productDAO.findSlowMoving(b.getId(), 5);
             if (!slowMoving.isEmpty()) {
-                inventoryData.append("  Lowest selling products:\n");
+                inventoryData.append("SLOWEST MOVING PRODUCTS:\n");
                 for (Product p : slowMoving) {
-                    inventoryData.append("    - ").append(p.getName()).append(" (").append(p.getSellingPrice())
-                            .append(" EGP)\n");
+                    inventoryData.append("  - ").append(p.getName())
+                            .append(" | Price: ").append(String.format("%.2f", p.getSellingPrice()))
+                            .append(" EGP | Qty: ").append(p.getQuantity()).append("\n");
                 }
             }
             inventoryData.append("\n");
         }
 
-        String prompt = "You are a retail inventory analyst. Given this multi-branch inventory data, generate a concise weekly summary in Arabic. Include: overall status of each branch, most selling products, and lowest selling products for EACH branch separately. Do not aggregate the top products globally, display them per branch. Keep it accurate and under 300 words.\n\n"
+        String prompt = """
+                أنت محلل مخزون محترف لنظام ERP متعدد الفروع. بناءً على البيانات التالية، أنشئ تقريراً أسبوعياً احترافياً وشاملاً باللغة العربية للمدير التنفيذي.
+
+                التقرير يجب أن يحتوي على الأقسام التالية:
+
+                1. **ملخص تنفيذي** (2-3 جمل عن الوضع العام لجميع الفروع)
+                2. **تقرير كل فرع على حدة** يشمل:
+                   - الوضع العام والتقييم (ممتاز / جيد / يحتاج تدخل)
+                   - تفاصيل المخزون المنخفض وأولويات إعادة الطلب
+                   - المنتجات منتهية الصلاحية أو المقاربة للانتهاء مع توصيات عاجلة
+                   - المنتجات الأكثر والأقل مبيعاً مع تعليق تحليلي
+                   - القيمة التقديرية للمخزون
+                3. **التوصيات العاجلة** (مرتبة حسب الأولوية: عاجل جداً / عاجل / مقترح)
+                4. **خلاصة ختامية** بخطوات العمل المقترحة للأسبوع القادم
+
+                اجعل التقرير دقيقاً ومحددًا بالأرقام. لا تجمع بيانات الفروع ببعضها إلا في الملخص التنفيذي.
+
+                البيانات:
+                """
                 + inventoryData.toString();
+
 
         try {
             HttpClient client = HttpClient.newHttpClient();
