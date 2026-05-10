@@ -199,7 +199,7 @@ public class ProductDAO {
                 double changePct = Math.abs(product.getSellingPrice() - oldPrice) / oldPrice;
                 if (changePct >= 0.30) {
                     AlertDAO alertDAO = new AlertDAO();
-                    if (!alertDAO.existsUnreadSimilar("SYSTEM", product.getId(), product.getBranchId())) {
+                    if (!alertDAO.existsUnreadOrRecentSimilar("SYSTEM", product.getId(), product.getBranchId())) {
                         com.smartstock.model.Alert alert = new com.smartstock.model.Alert();
                         alert.setType("SYSTEM");
                         alert.setProductId(product.getId());

@@ -10,20 +10,52 @@ public class EnvHelper {
     private static final Map<String, String> envVars = new HashMap<>();
 
     static {
-        try (BufferedReader reader = new BufferedReader(new FileReader(".env"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                line = line.trim();
-                if (line.isEmpty() || line.startsWith("#")) continue;
-                int eqIdx = line.indexOf('=');
-                if (eqIdx > 0) {
-                    String key = line.substring(0, eqIdx).trim();
-                    String value = line.substring(eqIdx + 1).trim();
-                    envVars.put(key, value);
-                }
+        // Try multiple candidate locations for the .env file
+        String[] candidates = {
+            ".env",                                          // current working directory
+            System.getProperty("user.dir") + "/.env",       // explicit working dir
+            System.getProperty("user.dir") + "/ERP-main/.env", // nested project root
+            getJarDirectory() + "/.env",                    // next to the JAR
+            getJarDirectory() + "/../.env",                 // one level up from JAR
+            getJarDirectory() + "/../../.env",              // two levels up (from target/classes)
+            "c:/Users/kirols/Desktop/ERP-main/ERP-main/.env"// Absolute fallback
+        };
+
+        boolean loaded = false;
+        StringBuilder triedPaths = new StringBuilder();
+        for (String path : candidates) {
+            java.io.File f = new java.io.File(path);
+            triedPaths.append(f.getAbsolutePath()).append("\n");
+            if (f.exists()) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(f))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        line = line.trim();
+                        if (line.isEmpty() || line.startsWith("#")) continue;
+                        int eqIdx = line.indexOf('=');
+                        if (eqIdx > 0) {
+                            String key = line.substring(0, eqIdx).trim();
+                            String value = line.substring(eqIdx + 1).trim();
+                            envVars.put(key, value);
+                        }
+                    }
+                    loaded = true;
+                    break;
+                } catch (IOException ignored) {}
             }
-        } catch (IOException e) {
-            System.err.println("Could not load .env file. Make sure it exists in the root directory.");
+        }
+        if (!loaded) {
+            System.err.println("Could not load .env file. Tried:\n" + triedPaths.toString());
+        }
+    }
+
+    private static String getJarDirectory() {
+        try {
+            java.net.URL url = EnvHelper.class.getProtectionDomain().getCodeSource().getLocation();
+            java.io.File jarFile = new java.io.File(url.toURI());
+            return jarFile.isDirectory() ? jarFile.getAbsolutePath() : jarFile.getParent();
+        } catch (Exception e) {
+            return ".";
         }
     }
 

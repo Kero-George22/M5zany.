@@ -274,15 +274,12 @@ public class AdminDashboardController extends VBox {
         buildStatsCards(content);
         
         HBox lowerSection = new HBox(20);
-        VBox tableSection = new VBox(14);
-        HBox.setHgrow(tableSection, Priority.ALWAYS);
-        buildBranchTable(tableSection);
         
         VBox feedSection = new VBox(14);
-        feedSection.setPrefWidth(300);
+        HBox.setHgrow(feedSection, Priority.ALWAYS); // Let AI summary fill the width
         buildSummaryArea(feedSection);
         
-        lowerSection.getChildren().addAll(tableSection, feedSection);
+        lowerSection.getChildren().addAll(feedSection);
         content.getChildren().add(lowerSection);
         
         scroll.setContent(content);
@@ -359,74 +356,7 @@ public class AdminDashboardController extends VBox {
         return card;
     }
 
-    private void buildBranchTable(VBox parent) {
-        // Title
-        Label lbl = new Label("BRANCH OVERVIEW");
-        lbl.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: -text-primary; -fx-letter-spacing: 1px;");
 
-        // Filter bar
-        HBox filterBar = new HBox(10);
-        filterBar.setAlignment(Pos.CENTER_LEFT);
-
-        TextField searchField = new TextField();
-        searchField.setPromptText("🔍 Search branches...");
-        searchField.setPrefWidth(200);
-        searchField.setStyle("-fx-background-color: -card-bg; -fx-border-color: -card-border; -fx-border-radius: 6; -fx-text-fill: -text-primary; -fx-padding: 6 12;");
-
-        ToggleButton lowStockToggle = new ToggleButton("⚠ Has Low Stock");
-        lowStockToggle.setStyle("-fx-background-color: -card-bg; -fx-border-color: -card-border; -fx-border-radius: 6; -fx-text-fill: -text-secondary; -fx-padding: 6 12;");
-
-        filterBar.getChildren().addAll(searchField, lowStockToggle);
-
-        HBox topRow = new HBox(14, lbl);
-        Region sp = new Region(); HBox.setHgrow(sp, Priority.ALWAYS);
-        topRow.getChildren().addAll(sp, filterBar);
-        topRow.setAlignment(Pos.CENTER_LEFT);
-
-        // Hint label
-        Label hint = new Label("Click a row to view branch details");
-        hint.setStyle("-fx-text-fill: -text-secondary; -fx-font-size: 11px; -fx-font-style: italic;");
-
-        branchCardsBox = new FlowPane(20, 20);
-        branchCardsBox.setPadding(new Insets(10, 0, 10, 0));
-        
-        ScrollPane spCards = new ScrollPane(branchCardsBox);
-        spCards.setFitToWidth(true);
-        spCards.setPrefHeight(250);
-        spCards.setMinHeight(250);
-        spCards.setMaxHeight(250);
-        spCards.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        spCards.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        spCards.setStyle("-fx-background-color: transparent; -fx-background: transparent;");
-
-        filteredBranches = new FilteredList<>(allBranchData, b -> true);
-        filteredBranches.addListener((javafx.collections.ListChangeListener.Change<? extends Branch> c) -> {
-            updateBranchCards();
-        });
-
-        Runnable applyFilter = () -> {
-            String search = searchField.getText() == null ? "" : searchField.getText().toLowerCase();
-            boolean lowOnly = lowStockToggle.isSelected();
-            filteredBranches.setPredicate(b -> {
-                boolean nameMatch = b.getName() != null && b.getName().toLowerCase().contains(search)
-                        || b.getLocation() != null && b.getLocation().toLowerCase().contains(search);
-                boolean stockMatch = !lowOnly || b.getLowStockCount() > 0;
-                return nameMatch && stockMatch;
-            });
-        };
-
-        searchField.textProperty().addListener((obs, o, n) -> applyFilter.run());
-        lowStockToggle.selectedProperty().addListener((obs, o, n) -> {
-            lowStockToggle.setStyle(n
-                    ? "-fx-background-color: rgba(239,68,68,0.15); -fx-border-color: #EF4444; -fx-border-radius: 6; -fx-text-fill: #EF4444; -fx-padding: 6 12; -fx-font-weight: bold;"
-                    : "-fx-background-color: -card-bg; -fx-border-color: -card-border; -fx-border-radius: 6; -fx-text-fill: -text-secondary; -fx-padding: 6 12;");
-            applyFilter.run();
-        });
-
-        VBox card = new VBox(14, topRow, hint, spCards);
-        card.getStyleClass().add("card");
-        parent.getChildren().add(card);
-    }
 
     private void buildSummaryArea(VBox parent) {
         HBox topRow = new HBox(6);
@@ -470,82 +400,7 @@ public class AdminDashboardController extends VBox {
         swapContent(home);
     }
 
-    private void updateBranchCards() {
-        if (branchCardsBox == null) return;
-        branchCardsBox.getChildren().clear();
 
-        for (Branch b : filteredBranches) {
-            VBox card = new VBox(16);
-            card.setPrefWidth(280);
-            card.setMinWidth(280);
-            card.setStyle("-fx-background-color: #1A1D24; -fx-border-color: #334155; -fx-border-radius: 12; -fx-background-radius: 12; -fx-padding: 16;");
-            
-            HBox header = new HBox(12);
-            header.setAlignment(Pos.CENTER_LEFT);
-
-            StackPane iconBg = new StackPane();
-            iconBg.setStyle("-fx-background-color: rgba(99,102,241,0.05); -fx-background-radius: 8; -fx-border-color: #334155; -fx-border-radius: 8; -fx-padding: 8;");
-            FontIcon bIcon = new FontIcon("mdi2o-office-building");
-            bIcon.setIconColor(javafx.scene.paint.Color.web("#60A5FA"));
-            bIcon.setIconSize(24);
-            iconBg.getChildren().add(bIcon);
-
-            VBox titleBox = new VBox(2);
-            Label nameLbl = new Label(b.getName());
-            nameLbl.setStyle("-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold;");
-            
-            Label locLbl = new Label("📍 " + (b.getLocation() != null ? b.getLocation() : "N/A"));
-            locLbl.setStyle("-fx-text-fill: #94A3B8; -fx-font-size: 11px;");
-            titleBox.getChildren().addAll(nameLbl, locLbl);
-
-            header.getChildren().addAll(iconBg, titleBox);
-
-            Region sep = new Region();
-            sep.setMinHeight(1);
-            sep.setStyle("-fx-background-color: #334155;");
-
-            HBox stats = new HBox();
-            stats.setAlignment(Pos.CENTER_LEFT);
-
-            VBox pCol = new VBox(4);
-            Label pLbl = new Label("PRODUCTS");
-            pLbl.setStyle("-fx-text-fill: #64748B; -fx-font-size: 9px; -fx-font-weight: bold; -fx-letter-spacing: 1px;");
-            Label pVal = new Label(String.valueOf(b.getProductCount()));
-            pVal.setStyle("-fx-text-fill: #6366F1; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: 'Arial Black', sans-serif;");
-            pCol.getChildren().addAll(pLbl, pVal);
-
-            Region sp1 = new Region(); HBox.setHgrow(sp1, Priority.ALWAYS);
-
-            VBox uCol = new VBox(4);
-            Label uLbl = new Label("UNITS");
-            uLbl.setStyle("-fx-text-fill: #64748B; -fx-font-size: 9px; -fx-font-weight: bold; -fx-letter-spacing: 1px;");
-            Label uVal = new Label(String.valueOf(b.getTotalQuantity()));
-            uVal.setStyle("-fx-text-fill: #10B981; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: 'Arial Black', sans-serif;");
-            uCol.getChildren().addAll(uLbl, uVal);
-
-            Region sp2 = new Region(); HBox.setHgrow(sp2, Priority.ALWAYS);
-
-            VBox lCol = new VBox(4);
-            Label lLbl = new Label("LOW STOCK");
-            lLbl.setStyle("-fx-text-fill: #64748B; -fx-font-size: 9px; -fx-font-weight: bold; -fx-letter-spacing: 1px;");
-            Label lVal = new Label(String.valueOf(b.getLowStockCount()));
-            lVal.setStyle("-fx-text-fill: #F59E0B; -fx-font-size: 22px; -fx-font-weight: bold; -fx-font-family: 'Arial Black', sans-serif;");
-            lCol.getChildren().addAll(lLbl, lVal);
-
-            stats.getChildren().addAll(pCol, sp1, uCol, sp2, lCol);
-
-            card.getChildren().addAll(header, sep, stats);
-            
-            card.setStyle(card.getStyle() + "-fx-cursor: hand;");
-            card.setOnMouseClicked(e -> {
-                if (e.getClickCount() == 2) {
-                    openPage(new BranchDetailController(b, authService, stage), "Branch: " + b.getName());
-                }
-            });
-
-            branchCardsBox.getChildren().add(card);
-        }
-    }
 
     private void swapContent(VBox newContent) {
         VBox main = (VBox) contentHost.getParent();
