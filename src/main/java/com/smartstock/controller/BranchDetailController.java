@@ -164,17 +164,29 @@ public class BranchDetailController extends VBox {
         ToggleButton lowStockFilter = new ToggleButton("⚠ Low Stock Only");
         lowStockFilter.setStyle("-fx-background-color: -card-bg; -fx-border-color: -card-border; -fx-border-radius: 6; -fx-text-fill: -text-secondary; -fx-padding: 6 12;");
 
+        ToggleButton expiryFilter = new ToggleButton("⏳ Expiring/Expired");
+        expiryFilter.setStyle("-fx-background-color: -card-bg; -fx-border-color: -card-border; -fx-border-radius: 6; -fx-text-fill: -text-secondary; -fx-padding: 6 12;");
+
         // Wire filters
         Runnable applyFilter = () -> {
             String search = searchField.getText().toLowerCase();
             String cat = categoryFilter.getValue();
             boolean lowOnly = lowStockFilter.isSelected();
+            boolean expiringOnly = expiryFilter.isSelected();
+            
             filtered.setPredicate(p -> {
                 boolean nameMatch = p.getName() != null && p.getName().toLowerCase().contains(search)
                         || p.getBarcode() != null && p.getBarcode().toLowerCase().contains(search);
                 boolean catMatch = "All".equals(cat) || cat == null || cat.equals(p.getCategory());
                 boolean stockMatch = !lowOnly || p.getQuantity() < p.getMinStock();
-                return nameMatch && catMatch && stockMatch;
+                
+                boolean isExpiring = false;
+                if (p.getExpiryDate() != null) {
+                    isExpiring = p.getExpiryDate().isBefore(java.time.LocalDate.now().plusDays(7));
+                }
+                boolean expiryMatch = !expiringOnly || isExpiring;
+                
+                return nameMatch && catMatch && stockMatch && expiryMatch;
             });
         };
 
@@ -187,7 +199,14 @@ public class BranchDetailController extends VBox {
             applyFilter.run();
         });
 
-        filterBar.getChildren().addAll(searchField, categoryFilter, lowStockFilter);
+        expiryFilter.selectedProperty().addListener((obs, o, n) -> {
+            expiryFilter.setStyle(n
+                    ? "-fx-background-color: rgba(245,158,11,0.15); -fx-border-color: #F59E0B; -fx-border-radius: 6; -fx-text-fill: #F59E0B; -fx-padding: 6 12; -fx-font-weight: bold;"
+                    : "-fx-background-color: -card-bg; -fx-border-color: -card-border; -fx-border-radius: 6; -fx-text-fill: -text-secondary; -fx-padding: 6 12;");
+            applyFilter.run();
+        });
+
+        filterBar.getChildren().addAll(searchField, categoryFilter, lowStockFilter, expiryFilter);
 
         sectionHeader.getChildren().addAll(pIcon, sectionTitle, countBadge, sp, filterBar);
 

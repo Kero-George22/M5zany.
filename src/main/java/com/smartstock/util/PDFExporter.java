@@ -12,33 +12,69 @@ import java.util.List;
 public class PDFExporter {
 
     public static void exportBranchReport(List<Branch> branches, String filePath) throws IOException {
+        com.smartstock.dao.ProductDAO productDAO = new com.smartstock.dao.ProductDAO();
         try (PDDocument doc = new PDDocument()) {
             PDPage page = new PDPage(PDRectangle.A4);
             doc.addPage(page);
-            try (PDPageContentStream cs = new PDPageContentStream(doc, page)) {
-                cs.beginText();
-                cs.setFont(PDType1Font.HELVETICA_BOLD, 18);
-                cs.newLineAtOffset(50, 750);
-                cs.showText("SmartStock ERP - Branch Report");
-                cs.endText();
+            PDPageContentStream cs = new PDPageContentStream(doc, page);
 
-                cs.beginText();
-                cs.setFont(PDType1Font.HELVETICA_BOLD, 12);
-                cs.newLineAtOffset(50, 720);
-                cs.showText("Generated: " + java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
-                cs.endText();
+            cs.beginText();
+            cs.setFont(PDType1Font.HELVETICA_BOLD, 18);
+            cs.newLineAtOffset(50, 750);
+            cs.showText("SmartStock ERP - Admin Branch Report");
+            cs.endText();
 
-                int y = 690;
-                for (Branch b : branches) {
-                    cs.beginText();
-                    cs.setFont(PDType1Font.HELVETICA, 10);
-                    cs.newLineAtOffset(50, y);
-                    cs.showText(String.format("Branch: %s | Location: %s | Products: %d | Total Qty: %d | Low Stock: %d",
-                            b.getName(), b.getLocation(), b.getProductCount(), b.getTotalQuantity(), b.getLowStockCount()));
-                    cs.endText();
-                    y -= 20;
+            cs.beginText();
+            cs.setFont(PDType1Font.HELVETICA_BOLD, 12);
+            cs.newLineAtOffset(50, 720);
+            cs.showText("Generated: " + java.time.LocalDateTime.now().format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            cs.endText();
+
+            int y = 690;
+            for (Branch b : branches) {
+                y = writeLineBold(cs, y, String.format("Branch: %s | Location: %s", b.getName(), safe(b.getLocation())));
+                y = writeLine(cs, y, String.format("Products: %d | Total Qty: %d | Low Stock: %d", b.getProductCount(), b.getTotalQuantity(), b.getLowStockCount()));
+                y -= 10;
+                
+                List<Product> products = productDAO.findByBranchId(b.getId());
+                boolean hasCritical = false;
+                for (Product p : products) {
+                    if (isCritical(p)) {
+                        if (!hasCritical) {
+                            y = writeLineBold(cs, y, "Critical Products (Low Stock / Expiring):");
+                            hasCritical = true;
+                        }
+                        String reason = "";
+                        if (p.getQuantity() < p.getMinStock()) reason += "[LOW STOCK] ";
+                        if (p.getExpiryDate() != null && p.getExpiryDate().isBefore(java.time.LocalDate.now().plusDays(7))) {
+                            reason += "[EXPIRING: " + p.getExpiryDate() + "] ";
+                        }
+                        String line = String.format("- %s | Qty: %d (Min: %d) | %s",
+                            safe(p.getName()), p.getQuantity(), p.getMinStock(), reason.trim());
+                        y = writeLine(cs, y, line);
+                        if (y < 80) {
+                            cs.close();
+                            page = new PDPage(PDRectangle.A4);
+                            doc.addPage(page);
+                            cs = new PDPageContentStream(doc, page);
+                            y = 770;
+                        }
+                    }
+                }
+                if (!hasCritical) {
+                    y = writeLine(cs, y, "No critical products.");
+                }
+                y -= 25;
+                
+                if (y < 120) {
+                    cs.close();
+                    page = new PDPage(PDRectangle.A4);
+                    doc.addPage(page);
+                    cs = new PDPageContentStream(doc, page);
+                    y = 770;
                 }
             }
+            cs.close();
             doc.save(filePath);
         }
     }
@@ -125,6 +161,33 @@ public class PDFExporter {
                     cs = new PDPageContentStream(doc, page);
                     y = 770;
                 }
+            } // <-- Restore closing brace
+
+            y -= 8;
+            y = writeLineBold(cs, y, "Critical Products (Low Stock / Expiring)");
+            boolean hasCritical = false;
+            for (Product p : products) {
+                if (isCritical(p)) {
+                    hasCritical = true;
+                    String reason = "";
+                    if (p.getQuantity() < p.getMinStock()) reason += "[LOW STOCK] ";
+                    if (p.getExpiryDate() != null && p.getExpiryDate().isBefore(java.time.LocalDate.now().plusDays(7))) {
+                        reason += "[EXPIRING: " + p.getExpiryDate() + "] ";
+                    }
+                    String line = String.format("- %s | Qty: %d (Min: %d) | %s",
+                            safe(p.getName()), p.getQuantity(), p.getMinStock(), reason.trim());
+                    y = writeLine(cs, y, line);
+                    if (y < 80) {
+                        cs.close();
+                        page = new PDPage(PDRectangle.A4);
+                        doc.addPage(page);
+                        cs = new PDPageContentStream(doc, page);
+                        y = 770;
+                    }
+                }
+            }
+            if (!hasCritical) {
+                y = writeLine(cs, y, "No critical products.");
             }
 
             cs.close();
@@ -152,5 +215,11 @@ public class PDFExporter {
 
     private static String safe(String value) {
         return value == null || value.isBlank() ? "N/A" : value;
+    }
+
+    private static boolean isCritical(Product p) {
+        if (p.getQuantity() < p.getMinStock()) return true;
+        if (p.getExpiryDate() != null && p.getExpiryDate().isBefore(java.time.LocalDate.now().plusDays(7))) return true;
+        return false;
     }
 }

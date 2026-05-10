@@ -39,6 +39,23 @@
 }
 
 .root {
+    /* Default fallback values (dark theme) — overridden by .dark-theme / .light-theme */
+    -bg-color: #0E1116;
+    -card-bg: #1A1D24;
+    -card-border: #2A2F3A;
+    -text-primary: #F8FAFC;
+    -text-secondary: #8B949E;
+    -sidebar-bg: #0E1116;
+    -sidebar-border: #2A2F3A;
+    -nav-hover: #161B22;
+    -nav-active-bg: #1F2937;
+    -nav-active-border: #6366F1;
+    -nav-active-text: #E0E7FF;
+    -accent-color: #6366F1;
+    -shadow-color: rgba(0,0,0,0.5);
+    -input-bg: #15162C;
+    -input-border: #2A2F3A;
+    -table-header-bg: #1A1D24;
     -fx-font-family: "Segoe UI", "Arial", sans-serif;
     -fx-font-size: 13px;
     -fx-background-color: -bg-color;
@@ -321,4 +338,31 @@
 }
 .table-view .table-row-cell:selected {
     -fx-background-color: -nav-active-bg;
+}
+
+/* ===== CONTROLSFX NOTIFICATION POPUP OVERRIDE =====
+   Fixes ClassCastException from ControlsFX notificationpopup.css
+   where CSS variables can't be cast to Paint at parse time.
+   We override with concrete colors here so our stylesheet wins.
+*/
+.notification-bar > .pane {
+    -fx-background-color: #1A1D24;
+    -fx-border-color: #2A2F3A;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 16, 0, 0, 4);
+}
+
+.notification-bar .label {
+    -fx-text-fill: #F8FAFC;
+}
+
+.root.light-theme .notification-bar > .pane {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E8F0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 16, 0, 0, 4);
+}
+
+.root.light-theme .notification-bar .label {
+    -fx-text-fill: #0F172A;
 }
