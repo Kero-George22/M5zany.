@@ -222,4 +222,83 @@ public class PDFExporter {
         if (p.getExpiryDate() != null && p.getExpiryDate().isBefore(java.time.LocalDate.now().plusDays(7))) return true;
         return false;
     }
+
+    /**
+     * Exports a free-form text report (e.g. AI weekly summary) to PDF.
+     * Handles pagination automatically. Non-Latin characters are stripped for PDF safety.
+     */
+    public static void exportTextReport(String title, String bodyText, String filePath) throws IOException {
+        try (PDDocument doc = new PDDocument()) {
+            PDPage page = new PDPage(PDRectangle.A4);
+            doc.addPage(page);
+            PDPageContentStream cs = new PDPageContentStream(doc, page);
+
+            // Title
+            cs.beginText();
+            cs.setFont(PDType1Font.HELVETICA_BOLD, 16);
+            cs.newLineAtOffset(40, 770);
+            cs.showText(sanitize(title));
+            cs.endText();
+
+            // Date line
+            cs.beginText();
+            cs.setFont(PDType1Font.HELVETICA, 10);
+            cs.newLineAtOffset(40, 750);
+            cs.showText("Generated: " + java.time.LocalDateTime.now()
+                    .format(java.time.format.DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            cs.endText();
+
+            // Separator line
+            cs.moveTo(40, 742); cs.lineTo(555, 742); cs.stroke();
+
+            int y = 725;
+            // Split body into lines, wrap long ones
+            String[] rawLines = bodyText.split("\n");
+            for (String rawLine : rawLines) {
+                // Wrap at ~100 chars
+                String safe = sanitize(rawLine);
+                java.util.List<String> wrapped = wrapLine(safe, 100);
+                for (String wl : wrapped) {
+                    cs.beginText();
+                    cs.setFont(PDType1Font.HELVETICA, 10);
+                    cs.newLineAtOffset(40, y);
+                    cs.showText(wl);
+                    cs.endText();
+                    y -= 15;
+                    if (y < 60) {
+                        cs.close();
+                        page = new PDPage(PDRectangle.A4);
+                        doc.addPage(page);
+                        cs = new PDPageContentStream(doc, page);
+                        y = 770;
+                    }
+                }
+            }
+
+            cs.close();
+            doc.save(filePath);
+        }
+    }
+
+    /** Strip non-latin1 characters so PDType1Font doesn't crash on Arabic */
+    private static String sanitize(String s) {
+        if (s == null) return "";
+        StringBuilder sb = new StringBuilder();
+        for (char c : s.toCharArray()) {
+            if (c < 256) sb.append(c);
+            else sb.append('?');
+        }
+        return sb.toString();
+    }
+
+    private static java.util.List<String> wrapLine(String line, int maxLen) {
+        java.util.List<String> result = new java.util.ArrayList<>();
+        if (line.length() <= maxLen) { result.add(line); return result; }
+        while (line.length() > maxLen) {
+            result.add(line.substring(0, maxLen));
+            line = line.substring(maxLen);
+        }
+        if (!line.isEmpty()) result.add(line);
+        return result;
+    }
 }

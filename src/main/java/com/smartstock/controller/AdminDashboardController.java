@@ -363,9 +363,18 @@ public class AdminDashboardController extends VBox {
         topRow.setAlignment(Pos.CENTER_LEFT);
         FontIcon icn = new FontIcon("mdi2c-crosshairs-gps");
         icn.setIconColor(javafx.scene.paint.Color.web("#6366F1"));
-        Label lbl = new Label("Weekly Sammary ");
+        Label lbl = new Label("Weekly Summary ");
         lbl.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: -text-primary; -fx-letter-spacing: 1px;");
-        topRow.getChildren().addAll(icn, lbl);
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+
+        // Download as TXT button
+        MFXButton downloadTxtBtn = new MFXButton("⬇ TXT");
+        downloadTxtBtn.setStyle("-fx-background-color: rgba(16,185,129,0.12); -fx-border-color: #10B981; -fx-border-radius: 6; -fx-text-fill: #10B981; -fx-padding: 4 10; -fx-font-size: 11px; -fx-cursor: hand;");
+        downloadTxtBtn.setTooltip(new Tooltip("Download summary as text file"));
+
+        topRow.getChildren().addAll(icn, lbl, spacer, downloadTxtBtn);
 
         summaryArea = new TextArea();
         summaryArea.setPrefHeight(260);
@@ -378,6 +387,9 @@ public class AdminDashboardController extends VBox {
         card.setStyle("-fx-background-color: -card-bg; -fx-background-radius: 12; -fx-padding: 20; -fx-border-color: -card-border; -fx-border-radius: 12; -fx-border-width: 1;");
         parent.getChildren().add(card);
 
+        // Wire download buttons
+        downloadTxtBtn.setOnAction(e -> downloadSummaryAsTxt());
+
         // Auto-load last saved summary in background
         new Thread(() -> {
             String last = weeklySummaryService.getLastSummaryText();
@@ -388,6 +400,27 @@ public class AdminDashboardController extends VBox {
             });
         }).start();
     }
+
+    private void downloadSummaryAsTxt() {
+        if (summaryArea == null || summaryArea.getText().isBlank()) {
+            showAlert("No Summary", "Please generate an AI summary first.");
+            return;
+        }
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save Weekly Summary as Text");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        fc.setInitialFileName("weekly_summary_" + java.time.LocalDate.now() + ".txt");
+        File file = fc.showSaveDialog(stage);
+        if (file != null) {
+            try {
+                java.nio.file.Files.writeString(file.toPath(), summaryArea.getText(), java.nio.charset.StandardCharsets.UTF_8);
+                showAlert("Success", "Text file saved successfully.");
+            } catch (Exception ex) {
+                showAlert("Error", ex.getMessage());
+            }
+        }
+    }
+
     
     // ═══════════════════════════════════════════════════════════════════════
     // NAVIGATION — swap content in-place
