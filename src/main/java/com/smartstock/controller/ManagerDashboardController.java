@@ -141,16 +141,6 @@ public class ManagerDashboardController extends VBox {
             }
         });
 
-        Button cycleBtn = addNav(sidebar, "📋", "Cycle Counting", false);
-        cycleBtn.setOnAction(e -> {
-            try {
-                openPage(com.smartstock.util.DashboardHelper.loadView("/views/CycleCountingView.fxml"), "Cycle Counting");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                showInfo("Navigation Error", "Could not load Cycle Counting view.");
-            }
-        });
-
         sidebar.getChildren().add(makeSectionLabel("ACTIONS"));
 
         Button sendAlertBtn = addNav(sidebar, "📢", "Send Alert", false);
