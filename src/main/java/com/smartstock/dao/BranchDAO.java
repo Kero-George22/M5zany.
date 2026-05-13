@@ -107,4 +107,41 @@ public class BranchDAO {
         branch.setActive(rs.getBoolean("is_active"));
         return branch;
     }
+
+    /**
+     * Gets all branch IDs
+     */
+    public List<Integer> getAllBranchIds() {
+        List<Integer> branchIds = new ArrayList<>();
+        String sql = "SELECT id FROM branches WHERE is_active = TRUE ORDER BY id";
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                branchIds.add(rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return branchIds;
+    }
+
+    /**
+     * Gets branch name by ID
+     */
+    public String getBranchName(int branchId) {
+        String sql = "SELECT name FROM branches WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, branchId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString("name");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return "Unknown Branch";
+    }
 }

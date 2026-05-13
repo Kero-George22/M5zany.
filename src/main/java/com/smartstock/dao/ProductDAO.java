@@ -332,4 +332,22 @@ public class ProductDAO {
             default -> "Canned & Packaged";
         };
     }
+
+    /**
+     * Gets all product IDs
+     */
+    public List<Integer> getAllProductIds() {
+        List<Integer> productIds = new ArrayList<>();
+        String sql = "SELECT id FROM products ORDER BY id";
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                productIds.add(rs.getInt("id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productIds;
+    }
 }

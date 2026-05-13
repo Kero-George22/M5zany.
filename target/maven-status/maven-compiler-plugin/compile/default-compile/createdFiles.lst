@@ -23,7 +23,6 @@ com\smartstock\dao\AlertDAO.class
 com\smartstock\model\User.class
 com\smartstock\controller\LoginController.class
 com\smartstock\controller\AlertManagementController$1.class
-com\smartstock\controller\BranchManagementController$7.class
 com\smartstock\controller\UserManagementController.class
 com\smartstock\controller\ManagerDashboardController$1.class
 com\smartstock\util\GenericRepository.class
