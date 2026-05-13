@@ -6,16 +6,8 @@
                 <packaging>jar</packaging>
             </packagings>
             <goals>
-                <goal>process-classes</goal>
-                <goal>org.codehaus.mojo:exec-maven-plugin:3.5.1:exec</goal>
+                <goal>org.openjfx:javafx-maven-plugin:0.0.8:run</goal>
             </goals>
-            <properties>
-                <exec.vmArgs></exec.vmArgs>
-                <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
-                <exec.appArgs></exec.appArgs>
-                <exec.mainClass>${packageClassName}</exec.mainClass>
-                <exec.executable>java</exec.executable>
-            </properties>
         </action>
         <action>
             <actionName>debug</actionName>
@@ -23,15 +15,9 @@
                 <packaging>jar</packaging>
             </packagings>
             <goals>
-                <goal>process-classes</goal>
-                <goal>org.codehaus.mojo:exec-maven-plugin:3.5.1:exec</goal>
+                <goal>org.openjfx:javafx-maven-plugin:0.0.8:run</goal>
             </goals>
             <properties>
-                <exec.vmArgs>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</exec.vmArgs>
-                <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
-                <exec.appArgs></exec.appArgs>
-                <exec.mainClass>${packageClassName}</exec.mainClass>
-                <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
         </action>
@@ -41,15 +27,7 @@
                 <packaging>jar</packaging>
             </packagings>
             <goals>
-                <goal>process-classes</goal>
-                <goal>org.codehaus.mojo:exec-maven-plugin:3.5.1:exec</goal>
+                <goal>org.openjfx:javafx-maven-plugin:0.0.8:run</goal>
             </goals>
-            <properties>
-                <exec.vmArgs></exec.vmArgs>
-                <exec.args>${exec.vmArgs} -classpath %classpath ${exec.mainClass} ${exec.appArgs}</exec.args>
-                <exec.mainClass>${packageClassName}</exec.mainClass>
-                <exec.executable>java</exec.executable>
-                <exec.appArgs></exec.appArgs>
-            </properties>
         </action>
     </actions>

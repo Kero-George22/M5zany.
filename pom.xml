@@ -178,6 +178,16 @@
             <version>12.3.1</version>
         </dependency>
 
+        <!-- ===================== -->
+        <!-- FXGL -->
+        <!-- ===================== -->
+
+        <dependency>
+            <groupId>com.github.almasb</groupId>
+            <artifactId>fxgl</artifactId>
+            <version>17.3</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -210,6 +220,11 @@
 
                 <configuration>
                     <mainClass>com.smartstock.Main</mainClass>
+                    <options>
+                        <option>-Xms64m</option>
+                        <option>-Xmx256m</option>
+                        <option>-XX:+UseSerialGC</option>
+                    </options>
                 </configuration>
 
                 <executions>
