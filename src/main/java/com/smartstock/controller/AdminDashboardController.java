@@ -160,6 +160,19 @@ public class AdminDashboardController extends VBox {
         MFXButton alertsBtn = addNav(sidebar, "mdi2b-bell", "Alerts", false);
         alertsBtn.setOnAction(e -> openPage(new AlertManagementController(authService, stage), "Alerts"));
 
+        MFXButton resourceBtn = addNav(sidebar, "mdi2c-chart-timeline-variant", "Resource Tracking", false);
+        resourceBtn.setOnAction(e -> {
+            try {
+                openPage(com.smartstock.util.DashboardHelper.loadView("/views/ResourceTrackingView.fxml"), "Resource Tracking");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                showAlert("Navigation Error", "Could not load Resource Tracking view.");
+            }
+        });
+
+        MFXButton orchestrateAlertsBtn = addNav(sidebar, "mdi2b-bell-alert", "Inventory Alerts", false);
+        orchestrateAlertsBtn.setOnAction(e -> openPage(new AlertManagementController(authService, stage), "Inventory Alerts"));
+
         if (user != null && (user.isAdmin() || user.isManager())) {
             Label repLbl = makeSectionLabel("REPORTS");
             sidebar.getChildren().add(repLbl);

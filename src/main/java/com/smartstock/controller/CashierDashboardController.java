@@ -21,6 +21,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -59,6 +64,17 @@ public class CashierDashboardController extends VBox {
     private final TransactionDAO transactionDAO;
     private List<Product> allProducts = new ArrayList<>();
 
+    // ── Sidebar state ──────────────────────────────────────────────────────
+    private VBox sidebar;
+    private boolean sidebarExpanded = true;
+    private static final double EXPANDED_W  = 220;
+    private static final double COLLAPSED_W = 52;
+    private final List<NavEntry> navEntries = new ArrayList<>();
+    record NavEntry(Button btn, String icon, String label) {}
+
+    // ── Content area ───────────────────────────────────────────────────────
+    private VBox contentHost;
+
     public CashierDashboardController(AuthService authService, Stage stage) {
         this.authService  = authService;
         this.stage        = stage;
@@ -69,33 +85,98 @@ public class CashierDashboardController extends VBox {
 
         com.smartstock.util.ThemeManager.applyTheme(this);
         setSpacing(0);
+        VBox.setVgrow(this, Priority.ALWAYS);
 
-        buildHeader();
+        HBox layout = new HBox(0);
+        VBox.setVgrow(layout, Priority.ALWAYS);
+        layout.getChildren().addAll(buildSidebar(), buildMainArea());
+        getChildren().add(layout);
 
-        HBox mainArea = new HBox(14);
-        mainArea.getStyleClass().add("root");
-        mainArea.setPadding(new Insets(14));
-        VBox.setVgrow(mainArea, Priority.ALWAYS);
-
-        VBox leftPanel = buildProductPanel();
-        HBox.setHgrow(leftPanel, Priority.ALWAYS);
-
-        VBox rightPanel = buildCartPanel();
-        rightPanel.setPrefWidth(350);
-        rightPanel.setMinWidth(300);
-
-        mainArea.getChildren().addAll(leftPanel, rightPanel);
-        getChildren().add(mainArea);
         loadProducts();
     }
 
-    private void buildHeader() {
+    private VBox buildSidebar() {
+        sidebar = new VBox(0);
+        sidebar.getStyleClass().add("sidebar");
+        sidebar.setPrefWidth(EXPANDED_W);
+        sidebar.setMinWidth(EXPANDED_W);
+        sidebar.setMaxWidth(EXPANDED_W);
+
+        VBox logoBox = new VBox(3);
+        logoBox.getStyleClass().add("sidebar-header");
+        Label logoIcon = new Label("📦");
+        logoIcon.setStyle("-fx-font-size: 18px;");
+        Label logoText = new Label("M5zany");
+        logoText.getStyleClass().add("sidebar-logo");
+        Label subText = new Label("Cashier POS");
+        subText.getStyleClass().add("sidebar-sub");
+        logoBox.getChildren().addAll(new HBox(8, logoIcon, logoText), subText);
+        sidebar.getChildren().add(logoBox);
+
+        sidebar.getChildren().add(makeSectionLabel("NAVIGATION"));
+        
+        Button posBtn = addNav(sidebar, "🛒", "POS", true);
+        posBtn.setOnAction(e -> {
+            showPOSHome();
+            setActiveNav("POS");
+        });
+
+        Button qrBtn = addNav(sidebar, "📱", "QR Generator", false);
+        qrBtn.setOnAction(e -> {
+            try {
+                openPage(com.smartstock.util.DashboardHelper.loadView("/views/QRCodeView.fxml"), "QR Generator");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                showStatus("❌ Load Error: " + ex.getMessage(), false);
+            }
+        });
+
+        Button cycleBtn = addNav(sidebar, "📋", "Cycle Count", false);
+        cycleBtn.setOnAction(e -> {
+            try {
+                openPage(com.smartstock.util.DashboardHelper.loadView("/views/CycleCountingView.fxml"), "Cycle Count");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                showStatus("❌ Load Error: " + ex.getMessage(), false);
+            }
+        });
+
+        Region spacer = new Region();
+        VBox.setVgrow(spacer, Priority.ALWAYS);
+        sidebar.getChildren().add(spacer);
+        sidebar.getChildren().add(makeDivider());
+
+        Button logoutBtn = new Button("⏻  Logout");
+        logoutBtn.getStyleClass().add("nav-btn-danger");
+        logoutBtn.setMaxWidth(Double.MAX_VALUE);
+        logoutBtn.setOnAction(e -> logout());
+        sidebar.getChildren().add(logoutBtn);
+
+        return sidebar;
+    }
+
+    private VBox buildMainArea() {
+        VBox main = new VBox(0);
+        HBox.setHgrow(main, Priority.ALWAYS);
+        main.getStyleClass().add("root");
+
+        buildHeader(main);
+
+        contentHost = buildPOSContent();
+        VBox.setVgrow(contentHost, Priority.ALWAYS);
+        main.getChildren().add(contentHost);
+
+        return main;
+    }
+
+    private void buildHeader(VBox parent) {
         HBox header = new HBox(12);
         header.setAlignment(Pos.CENTER_LEFT);
         header.getStyleClass().add("header-bar");
 
-        Label posIcon = new Label("🛒");
-        posIcon.setStyle("-fx-font-size: 20px;");
+        Button toggleBtn = new Button("☰");
+        toggleBtn.getStyleClass().add("toggle-sidebar-btn");
+        toggleBtn.setOnAction(e -> toggleSidebar());
 
         welcomeLabel = new Label("POS Terminal");
         welcomeLabel.getStyleClass().add("header-title");
@@ -116,8 +197,89 @@ public class CashierDashboardController extends VBox {
         logoutBtn.getStyleClass().addAll("button", "btn-danger");
         logoutBtn.setOnAction(e -> logout());
 
-        header.getChildren().addAll(posIcon, welcomeLabel, hSpacer, statusLabel, themeBtn, logoutBtn);
-        getChildren().add(header);
+        header.getChildren().addAll(toggleBtn, welcomeLabel, hSpacer, statusLabel, themeBtn, logoutBtn);
+        parent.getChildren().add(header);
+    }
+
+    private VBox buildPOSContent() {
+        HBox mainArea = new HBox(14);
+        mainArea.getStyleClass().add("root");
+        mainArea.setPadding(new Insets(14));
+        VBox.setVgrow(mainArea, Priority.ALWAYS);
+
+        VBox leftPanel = buildProductPanel();
+        HBox.setHgrow(leftPanel, Priority.ALWAYS);
+
+        VBox rightPanel = buildCartPanel();
+        rightPanel.setPrefWidth(350);
+        rightPanel.setMinWidth(300);
+
+        mainArea.getChildren().addAll(leftPanel, rightPanel);
+        return new VBox(mainArea);
+    }
+
+    // ── Navigation logic ───────────────────────────────────────────────────
+    public void openPage(VBox pageCtrl, String title) {
+        VBox wrapper = new VBox(0);
+        wrapper.getStyleClass().add("root");
+        VBox.setVgrow(wrapper, Priority.ALWAYS);
+        VBox.setVgrow(pageCtrl, Priority.ALWAYS);
+        wrapper.getChildren().add(pageCtrl);
+        swapContent(wrapper);
+        welcomeLabel.setText(title);
+        setActiveNav(title);
+    }
+
+    private void showPOSHome() {
+        VBox pos = buildPOSContent();
+        VBox.setVgrow(pos, Priority.ALWAYS);
+        swapContent(pos);
+        welcomeLabel.setText("POS  ·  " + (authService.getCurrentUser() != null ? authService.getCurrentUser().getFullName() : ""));
+    }
+
+    private void swapContent(VBox newContent) {
+        VBox main = (VBox) contentHost.getParent();
+        main.getChildren().remove(contentHost);
+        contentHost = newContent;
+        VBox.setVgrow(contentHost, Priority.ALWAYS);
+        main.getChildren().add(contentHost);
+    }
+
+    private void toggleSidebar() {
+        sidebarExpanded = !sidebarExpanded;
+        double target = sidebarExpanded ? EXPANDED_W : COLLAPSED_W;
+        Timeline tl = new Timeline(new KeyFrame(Duration.millis(220),
+            new KeyValue(sidebar.prefWidthProperty(), target, Interpolator.EASE_BOTH)
+        ));
+        tl.play();
+    }
+
+    private Button addNav(VBox parent, String icon, String label, boolean active) {
+        Button btn = new Button(icon + "  " + label);
+        btn.getStyleClass().add(active ? "nav-btn-active" : "nav-btn");
+        btn.setMaxWidth(Double.MAX_VALUE);
+        navEntries.add(new NavEntry(btn, icon, label));
+        parent.getChildren().add(btn);
+        return btn;
+    }
+
+    private void setActiveNav(String targetLabel) {
+        for (NavEntry e : navEntries) {
+            e.btn().getStyleClass().removeAll("nav-btn-active", "nav-btn");
+            if (e.label().equalsIgnoreCase(targetLabel)) {
+                e.btn().getStyleClass().add("nav-btn-active");
+            } else {
+                e.btn().getStyleClass().add("nav-btn");
+            }
+        }
+    }
+
+    private Label makeSectionLabel(String text) {
+        Label lbl = new Label(text); lbl.getStyleClass().add("nav-section"); return lbl;
+    }
+
+    private Region makeDivider() {
+        Region r = new Region(); r.setPrefHeight(1); r.setStyle("-fx-background-color: #334155;"); return r;
     }
 
     private VBox buildProductPanel() {

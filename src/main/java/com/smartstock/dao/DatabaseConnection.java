@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 
 public class DatabaseConnection {
-  private static final String DB_URL = "jdbc:mysql://localhost:3306/smartstock";
+  private static final String DB_URL = "jdbc:mysql://localhost:3306/smartstock?connectTimeout=5000&socketTimeout=5000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true";
 private static final String USERNAME = "root";
 private static final String PASSWORD = "1234";
     private static HikariDataSource dataSource;
@@ -22,11 +22,14 @@ private static final String PASSWORD = "1234";
             config.setMaximumPoolSize(10);
             config.setMinimumIdle(2);
             config.setIdleTimeout(30000);
-            config.setConnectionTimeout(10000);
+            config.setConnectionTimeout(5000);
+            config.setLeakDetectionThreshold(10000);
             config.setDriverClassName("com.mysql.cj.jdbc.Driver");
             dataSource = new HikariDataSource(config);
+            System.out.println("Database connection pool initialized successfully");
         } catch (Exception e) {
             System.err.println("Failed to initialize database connection pool: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -34,12 +37,18 @@ private static final String PASSWORD = "1234";
         if (dataSource == null) {
             throw new SQLException("Connection pool not initialized");
         }
-        return dataSource.getConnection();
+        try {
+            return dataSource.getConnection();
+        } catch (SQLException e) {
+            System.err.println("Failed to get database connection: " + e.getMessage());
+            throw e;
+        }
     }
 
     public static void shutdown() {
         if (dataSource != null && !dataSource.isClosed()) {
             dataSource.close();
+            System.out.println("Database connection pool shut down");
         }
     }
 }

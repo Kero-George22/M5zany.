@@ -3,6 +3,8 @@ package com.smartstock.controller;
 import com.smartstock.model.User;
 import com.smartstock.service.AuthService;
 import com.smartstock.util.NavigationHelper;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -117,20 +119,65 @@ public class LoginController extends VBox {
             return;
         }
 
+        // Disable login button and show loading state
         loginButton.setDisable(true);
         loginButton.setText("Signing in...");
+        errorLabel.setVisible(false);
 
-        User user = authService.login(username, password);
-        if (user != null) {
-            errorLabel.setText("");
-            errorLabel.setVisible(false);
-            NavigationHelper.goToDashboard(authService, stage);
-        } else {
-            errorLabel.setText("❌ Invalid username or password.");
-            errorLabel.setVisible(true);
-            passwordField.clear();
+        // Create a background task for database authentication
+        Task<User> loginTask = new Task<User>() {
+            @Override
+            protected User call() throws Exception {
+                // Perform database authentication on background thread
+                return authService.login(username, password);
+            }
+
+            @Override
+            protected void succeeded() {
+                User user = getValue();
+                try {
+                    if (user != null) {
+                        // Successful login - navigate to dashboard on JavaFX thread
+                        errorLabel.setText("");
+                        errorLabel.setVisible(false);
+                        NavigationHelper.goToDashboard(authService, stage);
+                    } else {
+                        // Failed login - show error on JavaFX thread
+                        errorLabel.setText("❌ Invalid username or password.");
+                        errorLabel.setVisible(true);
+                        passwordField.clear();
+                    }
+                } finally {
+                    // Always re-enable login button on JavaFX thread
+                    resetLoginButton();
+                }
+            }
+
+            @Override
+            protected void failed() {
+                Throwable exception = getException();
+                try {
+                    // Show error message on JavaFX thread
+                    errorLabel.setText("❌ Login failed: " + (exception.getMessage() != null ? exception.getMessage() : "Database connection error"));
+                    errorLabel.setVisible(true);
+                    passwordField.clear();
+                } finally {
+                    // Always re-enable login button on JavaFX thread
+                    resetLoginButton();
+                }
+            }
+        };
+
+        // Start the background task
+        Thread loginThread = new Thread(loginTask);
+        loginThread.setDaemon(true);
+        loginThread.start();
+    }
+
+    private void resetLoginButton() {
+        Platform.runLater(() -> {
             loginButton.setDisable(false);
             loginButton.setText("Sign In");
-        }
+        });
     }
 }

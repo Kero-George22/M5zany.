@@ -129,6 +129,28 @@ public class ManagerDashboardController extends VBox {
         Button alertsBtn = addNav(sidebar, "🔔", "Alerts", false);
         alertsBtn.setOnAction(e -> openPage(new AlertManagementController(authService, stage), "Alerts"));
 
+        sidebar.getChildren().add(makeSectionLabel("PHASE 2 FEATURES"));
+        
+        Button resourceBtn = addNav(sidebar, "📈", "Resource Tracking", false);
+        resourceBtn.setOnAction(e -> {
+            try {
+                openPage(com.smartstock.util.DashboardHelper.loadView("/views/ResourceTrackingView.fxml"), "Resource Tracking");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                showInfo("Navigation Error", "Could not load Resource Tracking view.");
+            }
+        });
+
+        Button cycleBtn = addNav(sidebar, "📋", "Cycle Counting", false);
+        cycleBtn.setOnAction(e -> {
+            try {
+                openPage(com.smartstock.util.DashboardHelper.loadView("/views/CycleCountingView.fxml"), "Cycle Counting");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                showInfo("Navigation Error", "Could not load Cycle Counting view.");
+            }
+        });
+
         sidebar.getChildren().add(makeSectionLabel("ACTIONS"));
 
         Button sendAlertBtn = addNav(sidebar, "📢", "Send Alert", false);
