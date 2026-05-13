@@ -81,8 +81,8 @@
             </Label>
             <VBox spacing="10">
                 <Button text="Generate QR Code" onAction="#handleGenerateQRCode" styleClass="primary-button" prefWidth="200"/>
-                <Button text="Save QR Code" onAction="#handleSaveQRCode" styleClass="secondary-button" prefWidth="200" disable="true"/>
-                <Button text="Print QR Code" onAction="#handlePrintQRCode" styleClass="secondary-button" prefWidth="200" disable="true"/>
+                <Button fx:id="saveQRCodeButton" text="Save QR Code" onAction="#handleSaveQRCode" styleClass="secondary-button" prefWidth="200" disable="true"/>
+                <Button fx:id="printQRCodeButton" text="Print QR Code" onAction="#handlePrintQRCode" styleClass="secondary-button" prefWidth="200" disable="true"/>
                 <Button text="Clear" onAction="#handleClear" styleClass="secondary-button" prefWidth="200"/>
             </VBox>
             

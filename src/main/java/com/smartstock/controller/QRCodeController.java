@@ -15,6 +15,18 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.transform.Scale;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+import org.kordamp.ikonli.javafx.FontIcon;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.paint.Color;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -162,12 +174,12 @@ public class QRCodeController {
                 saveQRCodeButton.setDisable(false);
                 printQRCodeButton.setDisable(false);
                 
-                showAlert("Success", "QR Code generated successfully", Alert.AlertType.INFORMATION);
+                showNotification("Success", "QR Code generated successfully", "mdi2c-check-circle", "#10B981");
             } else {
-                showAlert("Error", "Failed to generate QR code", Alert.AlertType.ERROR);
+                showNotification("Error", "Failed to generate QR code", "mdi2a-alert-circle", "#EF4444");
             }
         } catch (Exception e) {
-            showAlert("Error", "Error generating QR code: " + e.getMessage(), Alert.AlertType.ERROR);
+            showNotification("Error", "Generation failed: " + e.getMessage(), "mdi2a-alert-circle", "#EF4444");
             e.printStackTrace();
         }
     }
@@ -194,15 +206,15 @@ public class QRCodeController {
                 productDAO.update(selectedProduct);
                 
                 qrStatusText.setText("QR Code Saved: " + currentQRPath);
-                showAlert("Success", "QR Code saved successfully", Alert.AlertType.INFORMATION);
+                showNotification("Saved", "QR Code saved to database", "mdi2c-content-save-check", "#6366F1");
                 
                 // Refresh table
                 loadExistingQRCodes();
             } else {
-                showAlert("Error", "Failed to save QR code", Alert.AlertType.ERROR);
+                showNotification("Error", "Failed to save QR code", "mdi2a-alert-circle", "#EF4444");
             }
         } catch (Exception e) {
-            showAlert("Error", "Error saving QR code: " + e.getMessage(), Alert.AlertType.ERROR);
+            showNotification("Error", "Save failed: " + e.getMessage(), "mdi2a-alert-circle", "#EF4444");
             e.printStackTrace();
         }
     }
@@ -210,59 +222,102 @@ public class QRCodeController {
     @FXML
     private void handlePrintQRCode() {
         if (currentQRImage == null) {
-            showAlert("Error", "Please generate a QR code first", Alert.AlertType.ERROR);
+            showNotification("Warning", "Generate a QR code before printing", "mdi2a-alert", "#F59E0B");
             return;
         }
         
-        try {
-            // Use JavaFX printing
-            Printer printer = Printer.getDefaultPrinter();
-            PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
-            
-            PrinterJob job = PrinterJob.createPrinterJob(printer);
-            if (job == null) {
-                showAlert("Error", "No printer available", Alert.AlertType.ERROR);
-                return;
-            }
-            
-            if (job.showPrintDialog(null)) {
-                // Create a node to print
-                javafx.scene.layout.VBox printContent = new javafx.scene.layout.VBox(20);
-                printContent.setStyle("-fx-padding: 50;");
-                
-                // QR Code image
-                ImageView qrImageView = new ImageView(currentQRImage);
-                qrImageView.setFitWidth(300);
-                qrImageView.setPreserveRatio(true);
-                qrImageView.setStyle("-fx-alignment: center;");
-                
-                // Product information
-                javafx.scene.text.Text productText = new javafx.scene.text.Text(
-                        "Product: " + (selectedProduct != null ? selectedProduct.getName() : "N/A")
-                );
-                productText.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-                
-                javafx.scene.text.Text barcodeText = new javafx.scene.text.Text(
-                        "Barcode: " + (selectedProduct != null && selectedProduct.getBarcode() != null ? selectedProduct.getBarcode() : "N/A")
-                );
-                barcodeText.setStyle("-fx-font-size: 14px;");
-                
-                printContent.getChildren().addAll(qrImageView, productText, barcodeText);
-                
-                // Print the node
-                boolean success = job.printPage(pageLayout, printContent);
-                
-                if (success) {
-                    job.endJob();
-                    showAlert("Success", "QR Code printed successfully", Alert.AlertType.INFORMATION);
-                } else {
-                    showAlert("Error", "Failed to print QR code", Alert.AlertType.ERROR);
+        // Use a Task for printing to avoid UI freezing
+        Task<Boolean> printTask = new Task<>() {
+            @Override
+            protected Boolean call() throws Exception {
+                Printer printer = Printer.getDefaultPrinter();
+                if (printer == null) {
+                    throw new RuntimeException("No default printer found on this system.");
                 }
+
+                // Standard Label size (approx 2x2 inches / 144x144 points)
+                Paper customLabel = Paper.DESIGNATED_LONG; // Or a more specific one if needed
+                PageLayout pageLayout = printer.createPageLayout(Paper.NA_LETTER, PageOrientation.PORTRAIT, Printer.MarginType.HARDWARE_MINIMUM);
+                
+                PrinterJob job = PrinterJob.createPrinterJob(printer);
+                if (job == null) {
+                    throw new RuntimeException("Could not create print job.");
+                }
+
+                // Prepare print node on JFX thread later if needed, but here we can build it
+                // Note: Nodes must be created on FX thread
+                return true; // Just a placeholder for the logic below which I'll move to Platform.runLater
             }
-        } catch (Exception e) {
-            showAlert("Error", "Error printing QR code: " + e.getMessage(), Alert.AlertType.ERROR);
-            e.printStackTrace();
-        }
+        };
+
+        // Building the UI on FX thread
+        Platform.runLater(() -> {
+            try {
+                PrinterJob job = PrinterJob.createPrinterJob();
+                if (job != null && job.showPrintDialog(qrCodeImageView.getScene().getWindow())) {
+                    
+                    // Create a beautiful label node for printing
+                    VBox labelNode = new VBox(5);
+                    labelNode.setAlignment(Pos.CENTER);
+                    labelNode.setStyle("-fx-background-color: white; -fx-padding: 10;");
+                    
+                    // Product Header
+                    Text header = new Text("M5ZANY ERP");
+                    header.setFont(Font.font("System", FontWeight.BOLD, 10));
+                    header.setFill(Color.BLACK);
+                    
+                    // QR Image
+                    ImageView printImageView = new ImageView(currentQRImage);
+                    printImageView.setFitWidth(150);
+                    printImageView.setFitHeight(150);
+                    printImageView.setPreserveRatio(true);
+                    
+                    // Details
+                    Text prodName = new Text(selectedProduct.getName());
+                    prodName.setFont(Font.font("System", FontWeight.BOLD, 12));
+                    
+                    Text barcode = new Text("ID: " + selectedProduct.getId() + " | " + selectedProduct.getBarcode());
+                    barcode.setFont(Font.font("System", 10));
+                    
+                    labelNode.getChildren().addAll(header, printImageView, prodName, barcode);
+                    
+                    // Scale to fit page if needed
+                    PageLayout pageLayout = job.getJobSettings().getPageLayout();
+                    double scaleX = pageLayout.getPrintableWidth() / labelNode.getBoundsInParent().getWidth();
+                    double scaleY = pageLayout.getPrintableHeight() / labelNode.getBoundsInParent().getHeight();
+                    double minimumScale = Math.min(scaleX, scaleY);
+                    if (minimumScale < 1.0) {
+                        labelNode.getTransforms().add(new Scale(minimumScale, minimumScale));
+                    }
+
+                    if (job.printPage(labelNode)) {
+                        job.endJob();
+                        showNotification("Printed", "Label sent to printer", "mdi2p-printer-check", "#10B981");
+                    } else {
+                        showNotification("Error", "Print job failed", "mdi2a-alert-circle", "#EF4444");
+                    }
+                }
+            } catch (Exception e) {
+                showAlert("Printer Error", "Failed to print: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+        });
+    }
+
+    private void showNotification(String title, String message, String iconCode, String color) {
+        Platform.runLater(() -> {
+            FontIcon icon = new FontIcon(iconCode);
+            icon.setIconSize(24);
+            icon.setIconColor(Color.web(color));
+
+            Notifications.create()
+                .title(title)
+                .text(message)
+                .graphic(icon)
+                .hideAfter(Duration.seconds(3))
+                .position(Pos.TOP_RIGHT)
+                .owner(qrCodeImageView.getScene().getWindow())
+                .show();
+        });
     }
     
     @FXML
