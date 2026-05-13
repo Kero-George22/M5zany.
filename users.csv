@@ -1,0 +1,20 @@
+user_id,username,password_hash,full_name,email,role_id,branch_id,is_active,created_at
+1,admin,$2a$10$xLRj9g3K1vMnOpQ2sT4uYe,Ahmed Hassan,ahmed.admin@erp.com,1,NULL,1,2024-01-10 09:00:00
+2,mgr_tahrir,$2a$10$aB3cD4eF5gH6iJ7kL8mNoe,Sara Ibrahim,sara.tahrir@erp.com,2,1,1,2024-01-11 10:00:00
+3,cashier_tahrir1,$2a$10$bC4dE5fG6hI7jK8lM9nOpf,Omar Khalil,omar.c1@erp.com,3,1,1,2024-01-12 11:00:00
+4,cashier_tahrir2,$2a$10$cD5eF6gH7iJ8kL9mN0oPqg,Nour Ali,nour.c2@erp.com,3,1,1,2024-01-12 11:30:00
+5,mgr_nasr,$2a$10$dE6fG7hI8jK9lM0nO1pQrh,Mohamed Farouk,m.nasr@erp.com,2,2,1,2024-02-02 09:00:00
+6,cashier_nasr1,$2a$10$eF7gH8iJ9kL0mN1oP2qRsi,Yasmin Taha,y.nasr1@erp.com,3,2,1,2024-02-03 10:00:00
+7,cashier_nasr2,$2a$10$fG8hI9jK0lM1nO2pQ3rStj,Karim Hamed,k.nasr2@erp.com,3,2,1,2024-02-03 10:30:00
+8,mgr_alex,$2a$10$gH9iJ0kL1mN2oP3qR4sUkk,Dina Mostafa,d.alex@erp.com,2,3,1,2024-03-16 09:00:00
+9,cashier_alex1,$2a$10$hI0jK1lM2nO3pQ4rS5tVll,Amr Youssef,a.alex1@erp.com,3,3,1,2024-03-17 10:00:00
+10,cashier_alex2,$2a$10$iJ1kL2mN3oP4qR5sT6uWmm,Rania Samir,r.alex2@erp.com,3,3,1,2024-03-17 10:30:00
+11,mgr_giza,$2a$10$jK2lM3nO4pQ5rS6tU7vXnn,Tarek Nasser,t.giza@erp.com,2,4,1,2024-04-02 09:00:00
+12,cashier_giza1,$2a$10$kL3mN4oP5qR6sT7uV8wYoo,Hana Adel,h.giza1@erp.com,3,4,1,2024-04-03 10:00:00
+13,cashier_giza2,$2a$10$lM4nO5pQ6rS7tU8vW9xZpp,Sherif Badr,s.giza2@erp.com,3,4,1,2024-04-03 10:30:00
+14,mgr_maadi,$2a$10$mN5oP6qR7sT8uV9wX0yAqq,Laila Reda,l.maadi@erp.com,2,5,1,2024-05-11 09:00:00
+15,cashier_maadi1,$2a$10$nO6pQ7rS8tU9vW0xY1zBrr,Fady Gamil,f.maadi1@erp.com,3,5,1,2024-05-12 10:00:00
+16,cashier_maadi2,$2a$10$oP7qR8sT9uV0wX1yZ2ACss,Mai Wahba,m.maadi2@erp.com,3,5,1,2024-05-12 10:30:00
+17,mgr_helio,$2a$10$pQ8rS9tU0vW1xX2yY3BDtt,Wael Mansour,w.helio@erp.com,2,6,1,2024-06-02 09:00:00
+18,cashier_helio1,$2a$10$qR9sT0uV1wX2yY3zZ4CEuu,Mariam Sobhy,m.helio1@erp.com,3,6,1,2024-06-03 10:00:00
+19,cashier_helio2,$2a$10$rS0tU1vW2xX3yY4zA5DFvv,Bishoy Hanna,b.helio2@erp.com,3,6,1,2024-06-03 10:30:00
