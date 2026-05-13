@@ -179,9 +179,64 @@ public class CycleCountingController {
                     null,
                     null,
                     "",
-                    "Count"
+                    "Check-off"
             );
             countListItems.add(item);
+        }
+        
+        showAlert("Success", "Generated " + productIds.size() + " products for daily cycle count", Alert.AlertType.INFORMATION);
+    }
+    
+    @FXML
+    private void handleSuggest() {
+        // Generate new suggestions
+        handleGenerateDailyList();
+    }
+    
+    @FXML
+    private void handleCheckOff() {
+        CountListItem selectedItem = countListTable.getSelectionModel().getSelectedItem();
+        if (selectedItem == null) {
+            showAlert("Error", "Please select a product to check off", Alert.AlertType.ERROR);
+            return;
+        }
+        
+        try {
+            int productId = selectedItem.productIdProperty().get();
+            int expectedQty = selectedItem.expectedQtyProperty().get();
+            
+            // Log the count with expected qty as counted qty (no discrepancy)
+            int countId = cycleCountingService.logCycleCount(
+                    currentBranchId,
+                    productId,
+                    LocalDate.now(),
+                    expectedQty,
+                    expectedQty, // Counted equals expected (no discrepancy)
+                    getCurrentUserId(),
+                    "Auto check-off - no discrepancy"
+            );
+            
+            if (countId > 0) {
+                // Update the item to show it's checked off
+                selectedItem.setCountedQty(expectedQty);
+                selectedItem.setDiscrepancy(0);
+                selectedItem.setNotes("Checked off");
+                selectedItem.setAction("Completed");
+                
+                // Refresh the table
+                countListTable.refresh();
+                
+                showAlert("Success", "Product checked off successfully", Alert.AlertType.INFORMATION);
+                
+                // Refresh statistics
+                loadStatistics();
+                loadHistory();
+            } else {
+                showAlert("Error", "Failed to check off product", Alert.AlertType.ERROR);
+            }
+        } catch (Exception e) {
+            showAlert("Error", "Error checking off product: " + e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
         }
     }
     
@@ -281,6 +336,12 @@ public class CycleCountingController {
         public SimpleIntegerProperty discrepancyProperty() { return discrepancy; }
         public SimpleStringProperty notesProperty() { return notes; }
         public SimpleStringProperty actionProperty() { return action; }
+        
+        // Setter methods for updating values
+        public void setCountedQty(int qty) { this.countedQty.set(qty); }
+        public void setDiscrepancy(int disc) { this.discrepancy.set(disc); }
+        public void setNotes(String note) { this.notes.set(note); }
+        public void setAction(String act) { this.action.set(act); }
     }
     
     // Inner class for history table items

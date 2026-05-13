@@ -3,11 +3,13 @@ C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\Alert
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\BranchDetailController.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\BranchManagementController.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\CashierDashboardController.java
+C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\CycleCountingController.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\LoginController.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\ManagerDashboardController.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\ManagerInvoicesController.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\ProductDetailController.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\ProductManagementController.java
+C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\ResourceTrackingController.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\StockTransferController.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\controller\UserManagementController.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\dao\AlertDAO.java
@@ -49,7 +51,10 @@ C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\model\User.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\service\AIService.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\service\AuthService.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\service\BranchService.java
+C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\service\CycleCountingService.java
+C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\service\InventoryOrchestrationService.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\service\ReportService.java
+C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\service\ResourceTrackingService.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\service\UserService.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\service\WeeklySummaryService.java
 C:\Users\elmohandes\Desktop\M5zany\src\main\java\com\smartstock\thread\WeeklyReportTask.java

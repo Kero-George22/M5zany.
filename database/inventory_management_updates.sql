@@ -81,7 +81,19 @@ INSERT INTO inventory_config (config_key, config_value, description) VALUES
 ON DUPLICATE KEY UPDATE config_value = VALUES(config_value);
 
 -- ============================================
--- 6. Verify table structures
+-- 6. Add audit_status column to cycle_count_log for Phase 2
+-- ============================================
+ALTER TABLE cycle_count_log
+ADD COLUMN audit_status ENUM('PENDING', 'IN_PROGRESS', 'COMPLETED', 'DISCREPANCY') DEFAULT 'PENDING' AFTER notes;
+
+-- ============================================
+-- 7. Add qr_code_path column to products for Phase 2 QR system
+-- ============================================
+ALTER TABLE products
+ADD COLUMN qr_code_path VARCHAR(255) DEFAULT NULL AFTER qr_code;
+
+-- ============================================
+-- 8. Verify table structures
 -- ============================================
 -- Display updated inventory structure
 DESCRIBE inventory;
@@ -91,3 +103,6 @@ DESCRIBE stock_movements;
 
 -- Display updated cycle_count_log structure
 DESCRIBE cycle_count_log;
+
+-- Display updated products structure
+DESCRIBE products;

@@ -140,30 +140,64 @@ public class ProductDAO {
     }
 
     public int insert(Product product) {
-        String sql = "INSERT INTO products (name, barcode, qr_code, category, category_id, unit, unit_cost, wholesale_price, selling_price, reorder_level, description, expiry_date, branch_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO products (name, barcode, qr_code, qr_code_path, category, category_id, unit, unit_cost, wholesale_price, selling_price, reorder_level, description, expiry_date, branch_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getBarcode());
-            stmt.setString(3, product.getQrCode());
-            stmt.setString(4, product.getCategory());
-            if (product.getCategoryId() != null) stmt.setInt(5, product.getCategoryId());
-            else stmt.setNull(5, Types.INTEGER);
-            stmt.setString(6, product.getUnit());
-            stmt.setDouble(7, product.getUnitCost());
-            stmt.setDouble(8, product.getWholesalePrice());
-            stmt.setDouble(9, product.getSellingPrice());
-            stmt.setInt(10, product.getReorderLevel() > 0 ? product.getReorderLevel() : 10);
-            stmt.setString(11, product.getDescription());
-            if (product.getExpiryDate() != null) stmt.setDate(12, Date.valueOf(product.getExpiryDate()));
-            else stmt.setNull(12, Types.DATE);
-            if (product.getBranchId() != null) stmt.setInt(13, product.getBranchId());
-            else stmt.setNull(13, Types.INTEGER);
+            
+            // Auto-generate QR code if not provided
+            String qrCode = product.getQrCode();
+            String qrCodePath = product.getQrCodePath();
+            if (qrCode == null || qrCode.isEmpty()) {
+                com.smartstock.service.QRCodeService qrService = new com.smartstock.service.QRCodeService();
+                // Generate QR code after we get the product ID
+                qrCode = "AUTO"; // Placeholder
+            }
+            stmt.setString(3, qrCode);
+            stmt.setString(4, qrCodePath);
+            
+            stmt.setString(5, product.getCategory());
+            if (product.getCategoryId() != null) stmt.setInt(6, product.getCategoryId());
+            else stmt.setNull(6, Types.INTEGER);
+            stmt.setString(7, product.getUnit());
+            stmt.setDouble(8, product.getUnitCost());
+            stmt.setDouble(9, product.getWholesalePrice());
+            stmt.setDouble(10, product.getSellingPrice());
+            stmt.setInt(11, product.getReorderLevel() > 0 ? product.getReorderLevel() : 10);
+            stmt.setString(12, product.getDescription());
+            if (product.getExpiryDate() != null) stmt.setDate(13, Date.valueOf(product.getExpiryDate()));
+            else stmt.setNull(13, Types.DATE);
+            if (product.getBranchId() != null) stmt.setInt(14, product.getBranchId());
+            else stmt.setNull(14, Types.INTEGER);
             stmt.executeUpdate();
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     int productId = rs.getInt(1);
+                    
+                    // Auto-generate QR code after getting product ID
+                    if (qrCode.equals("AUTO")) {
+                        com.smartstock.service.QRCodeService qrService = new com.smartstock.service.QRCodeService();
+                        String generatedPath = qrService.generateQRCode(
+                                productId,
+                                product.getName(),
+                                product.getBarcode() != null ? product.getBarcode() : "N/A"
+                        );
+                        if (generatedPath != null) {
+                            // Update product with generated QR code path
+                            String updateSql = "UPDATE products SET qr_code = ?, qr_code_path = ? WHERE id = ?";
+                            try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
+                                updateStmt.setString(1, generatedPath);
+                                updateStmt.setString(2, generatedPath);
+                                updateStmt.setInt(3, productId);
+                                updateStmt.executeUpdate();
+                            }
+                            product.setQrCode(generatedPath);
+                            product.setQrCodePath(generatedPath);
+                        }
+                    }
+                    
                     insertInventory(productId, product.getBranchId(), product.getQuantity(), product.getMinStock());
                     return productId;
                 }
@@ -173,7 +207,7 @@ public class ProductDAO {
     }
 
     public boolean update(Product product) {
-        String sql = "UPDATE products SET name=?, barcode=?, category=?, category_id=?, unit=?, unit_cost=?, wholesale_price=?, " +
+        String sql = "UPDATE products SET name=?, barcode=?, qr_code=?, qr_code_path=?, category=?, category_id=?, unit=?, unit_cost=?, wholesale_price=?, " +
                 "selling_price=?, reorder_level=?, description=?, expiry_date=? WHERE id=?";
         Double oldPrice = null;
         Product old = findById(product.getId());
@@ -182,18 +216,20 @@ public class ProductDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getBarcode());
-            stmt.setString(3, product.getCategory());
-            if (product.getCategoryId() != null) stmt.setInt(4, product.getCategoryId());
-            else stmt.setNull(4, Types.INTEGER);
-            stmt.setString(5, product.getUnit());
-            stmt.setDouble(6, product.getUnitCost());
-            stmt.setDouble(7, product.getWholesalePrice());
-            stmt.setDouble(8, product.getSellingPrice());
-            stmt.setInt(9, product.getReorderLevel() > 0 ? product.getReorderLevel() : 10);
-            stmt.setString(10, product.getDescription());
-            if (product.getExpiryDate() != null) stmt.setDate(11, Date.valueOf(product.getExpiryDate()));
-            else stmt.setNull(11, Types.DATE);
-            stmt.setInt(12, product.getId());
+            stmt.setString(3, product.getQrCode());
+            stmt.setString(4, product.getQrCodePath());
+            stmt.setString(5, product.getCategory());
+            if (product.getCategoryId() != null) stmt.setInt(6, product.getCategoryId());
+            else stmt.setNull(6, Types.INTEGER);
+            stmt.setString(7, product.getUnit());
+            stmt.setDouble(8, product.getUnitCost());
+            stmt.setDouble(9, product.getWholesalePrice());
+            stmt.setDouble(10, product.getSellingPrice());
+            stmt.setInt(11, product.getReorderLevel() > 0 ? product.getReorderLevel() : 10);
+            stmt.setString(12, product.getDescription());
+            if (product.getExpiryDate() != null) stmt.setDate(13, Date.valueOf(product.getExpiryDate()));
+            else stmt.setNull(13, Types.DATE);
+            stmt.setInt(14, product.getId());
             boolean ok = stmt.executeUpdate() > 0;
             if (ok && oldPrice != null && oldPrice > 0) {
                 double changePct = Math.abs(product.getSellingPrice() - oldPrice) / oldPrice;
@@ -245,6 +281,7 @@ public class ProductDAO {
         product.setName(rs.getString("name"));
         product.setBarcode(rs.getString("barcode"));
         product.setQrCode(rs.getString("qr_code"));
+        try { product.setQrCodePath(rs.getString("qr_code_path")); } catch (SQLException ignored) {}
         product.setCategory(rs.getString("category"));
         // New fields — safe fallback if column missing in older query
         try { product.setCategoryId(rs.getObject("category_id", Integer.class)); } catch (SQLException ignored) {}

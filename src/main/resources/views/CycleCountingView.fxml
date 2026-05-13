@@ -76,7 +76,8 @@
                     <Font name="System Bold" size="14"/>
                 </font>
             </Label>
-            <Button text="Generate New List" onAction="#handleGenerateDailyList" styleClass="primary-button"/>
+            <Button text="Suggest Products" onAction="#handleSuggest" styleClass="primary-button"/>
+            <Button text="Check-off Selected" onAction="#handleCheckOff" styleClass="secondary-button"/>
             <Button text="Refresh" onAction="#handleRefresh" styleClass="secondary-button"/>
         </HBox>
         

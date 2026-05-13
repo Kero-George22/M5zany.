@@ -7,6 +7,7 @@ public class Product implements PhantomEntity {
     private String name;
     private String barcode;
     private String qrCode;
+    private String qrCodePath;    // Path to QR code image file
     private String category;       // legacy text category (kept for backward compat)
     private Integer categoryId;    // FK → categories.category_id (new)
     private String unit;           // e.g. "KG", "PCS", "BOX" (new)
@@ -46,6 +47,9 @@ public class Product implements PhantomEntity {
 
     public String getQrCode() { return qrCode; }
     public void setQrCode(String qrCode) { this.qrCode = qrCode; }
+
+    public String getQrCodePath() { return qrCodePath; }
+    public void setQrCodePath(String qrCodePath) { this.qrCodePath = qrCodePath; }
 
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }

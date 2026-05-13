@@ -20,6 +20,7 @@ public class InventoryOrchestrationService {
     private final InventoryDAO inventoryDAO;
     private final BranchDAO branchDAO;
     private final AlertDAO alertDAO;
+    private final com.smartstock.dao.ProductDAO productDAO;
     private ScheduledExecutorService scheduler;
     private boolean isRunning = false;
 
@@ -30,6 +31,7 @@ public class InventoryOrchestrationService {
         this.inventoryDAO = new InventoryDAO();
         this.branchDAO = new BranchDAO();
         this.alertDAO = new AlertDAO();
+        this.productDAO = new com.smartstock.dao.ProductDAO();
     }
 
     /**
@@ -269,14 +271,52 @@ public class InventoryOrchestrationService {
     private List<ExpiringProduct> findExpiringProducts(int branchId, int withinDays) {
         List<ExpiringProduct> products = new ArrayList<>();
         try {
-            // This would need to return actual product details with expiry dates
-            // For now, this is a placeholder that would be implemented with a proper DAO query
-            // Query would be: SELECT product_id, expiry_date FROM inventory WHERE branch_id = ? 
-            // AND expiry_date IS NOT NULL AND DATEDIFF(expiry_date, CURDATE()) <= ?
+            // Use ProductDAO to find expiring products
+            List<com.smartstock.model.Product> expiringProducts = productDAO.findExpiringSoon(branchId, withinDays);
+            
+            for (com.smartstock.model.Product product : expiringProducts) {
+                // Get expiry date from inventory for this branch
+                java.time.LocalDate expiryDate = getExpiryDateFromInventory(product.getId(), branchId);
+                
+                if (expiryDate != null) {
+                    long daysUntilExpiry = java.time.temporal.ChronoUnit.DAYS.between(
+                            java.time.LocalDate.now(), expiryDate);
+                    
+                    if (daysUntilExpiry >= 0 && daysUntilExpiry <= withinDays) {
+                        products.add(new ExpiringProduct(
+                                product.getId(),
+                                product.getName(),
+                                expiryDate,
+                                (int) daysUntilExpiry
+                        ));
+                    }
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return products;
+    }
+    
+    /**
+     * Gets expiry date from inventory table for a specific product and branch
+     */
+    private java.time.LocalDate getExpiryDateFromInventory(int productId, int branchId) {
+        String sql = "SELECT expiry_date FROM inventory WHERE product_id = ? AND branch_id = ?";
+        try (java.sql.Connection conn = com.smartstock.dao.DatabaseConnection.getConnection();
+             java.sql.PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, productId);
+            stmt.setInt(2, branchId);
+            try (java.sql.ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    java.sql.Date expiryDate = rs.getDate("expiry_date");
+                    return expiryDate != null ? expiryDate.toLocalDate() : null;
+                }
+            }
+        } catch (java.sql.SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
