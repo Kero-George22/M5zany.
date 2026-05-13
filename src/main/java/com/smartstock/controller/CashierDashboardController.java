@@ -74,6 +74,8 @@ public class CashierDashboardController extends VBox {
 
     // ── Content area ───────────────────────────────────────────────────────
     private VBox contentHost;
+    private VBox posHomeContent;
+    private final java.util.Map<String, VBox> viewCache = new java.util.HashMap<>();
 
     public CashierDashboardController(AuthService authService, Stage stage) {
         this.authService  = authService;
@@ -162,8 +164,9 @@ public class CashierDashboardController extends VBox {
 
         buildHeader(main);
 
-        contentHost = buildPOSContent();
-        VBox.setVgrow(contentHost, Priority.ALWAYS);
+        posHomeContent = buildPOSContent();
+        VBox.setVgrow(posHomeContent, Priority.ALWAYS);
+        contentHost = posHomeContent;
         main.getChildren().add(contentHost);
 
         return main;
@@ -220,20 +223,27 @@ public class CashierDashboardController extends VBox {
 
     // ── Navigation logic ───────────────────────────────────────────────────
     public void openPage(VBox pageCtrl, String title) {
+        if (viewCache.containsKey(title)) {
+            swapContent(viewCache.get(title));
+            welcomeLabel.setText(title);
+            setActiveNav(title);
+            return;
+        }
+
         VBox wrapper = new VBox(0);
         wrapper.getStyleClass().add("root");
         VBox.setVgrow(wrapper, Priority.ALWAYS);
         VBox.setVgrow(pageCtrl, Priority.ALWAYS);
         wrapper.getChildren().add(pageCtrl);
+        
+        viewCache.put(title, wrapper);
         swapContent(wrapper);
         welcomeLabel.setText(title);
         setActiveNav(title);
     }
 
     private void showPOSHome() {
-        VBox pos = buildPOSContent();
-        VBox.setVgrow(pos, Priority.ALWAYS);
-        swapContent(pos);
+        swapContent(posHomeContent);
         welcomeLabel.setText("POS  ·  " + (authService.getCurrentUser() != null ? authService.getCurrentUser().getFullName() : ""));
     }
 

@@ -12,6 +12,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.application.Platform;
+import javafx.geometry.Pos;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+import org.kordamp.ikonli.javafx.FontIcon;
+import javafx.scene.paint.Color;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -184,7 +190,8 @@ public class CycleCountingController {
             countListItems.add(item);
         }
         
-        showAlert("Success", "Generated " + productIds.size() + " products for daily cycle count", Alert.AlertType.INFORMATION);
+        
+        showNotification("Success", "Generated " + productIds.size() + " products for cycle count", "mdi2c-auto-fix", "#10B981");
     }
     
     @FXML
@@ -226,16 +233,17 @@ public class CycleCountingController {
                 // Refresh the table
                 countListTable.refresh();
                 
-                showAlert("Success", "Product checked off successfully", Alert.AlertType.INFORMATION);
+                
+                showNotification("Success", "Product checked off successfully", "mdi2c-check-circle", "#10B981");
                 
                 // Refresh statistics
                 loadStatistics();
                 loadHistory();
             } else {
-                showAlert("Error", "Failed to check off product", Alert.AlertType.ERROR);
+                showNotification("Error", "Failed to check off product", "mdi2a-alert-circle", "#EF4444");
             }
         } catch (Exception e) {
-            showAlert("Error", "Error checking off product: " + e.getMessage(), Alert.AlertType.ERROR);
+            showNotification("Error", "Error: " + e.getMessage(), "mdi2a-alert-circle", "#EF4444");
             e.printStackTrace();
         }
     }
@@ -271,7 +279,7 @@ public class CycleCountingController {
             );
             
             if (countId > 0) {
-                showAlert("Success", "Count saved successfully", Alert.AlertType.INFORMATION);
+                showNotification("Saved", "Count saved successfully", "mdi2c-content-save-check", "#6366F1");
                 
                 // Clear fields
                 countedQtyField.clear();
@@ -281,11 +289,27 @@ public class CycleCountingController {
                 loadStatistics();
                 loadHistory();
             } else {
-                showAlert("Error", "Failed to save count", Alert.AlertType.ERROR);
+                showNotification("Error", "Failed to save count", "mdi2a-alert-circle", "#EF4444");
             }
         } catch (NumberFormatException e) {
-            showAlert("Error", "Please enter valid quantities", Alert.AlertType.ERROR);
+            showNotification("Warning", "Invalid quantity format", "mdi2a-alert", "#F59E0B");
         }
+    }
+
+    private void showNotification(String title, String message, String iconCode, String color) {
+        Platform.runLater(() -> {
+            FontIcon icon = new FontIcon(iconCode);
+            icon.setIconSize(24);
+            icon.setIconColor(Color.web(color));
+
+            Notifications.create()
+                .title(title)
+                .text(message)
+                .graphic(icon)
+                .hideAfter(Duration.seconds(3))
+                .position(Pos.TOP_RIGHT)
+                .show();
+        });
     }
     
     private String getBranchName(int branchId) {
