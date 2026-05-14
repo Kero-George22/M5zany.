@@ -17,14 +17,14 @@ import org.controlsfx.control.Notifications;
 import java.io.IOException;
 import java.util.List;
 
-public class BranchManagementController extends VBox {
+public class BranchesController extends VBox {
 
     private final AuthService authService;
     private final Stage stage;
     private final BranchService branchService;
     private FlowPane cardFlowPane;
 
-    public BranchManagementController(AuthService authService, Stage stage) {
+    public BranchesController(AuthService authService, Stage stage) {
         this.authService = authService;
         this.stage = stage;
         this.branchService = new BranchService();
@@ -81,9 +81,11 @@ public class BranchManagementController extends VBox {
 
     private VBox createBranchCard(Branch branch) {
         VBox card = new VBox(12);
-        card.getStyleClass().addAll("card", "branch-card");
+        card.getStyleClass().addAll("card", "branch-card"); // Requirement 3: Add CSS class
         card.setPrefWidth(280);
         card.setPadding(new Insets(20));
+        
+        // Requirement 3: Hand cursor
         card.setStyle("-fx-background-color: -card-bg; -fx-border-color: -card-border; -fx-border-radius: 12; -fx-background-radius: 12; -fx-cursor: hand;");
 
         HBox topRow = new HBox(10);
@@ -111,7 +113,7 @@ public class BranchManagementController extends VBox {
         deleteBtn.setGraphic(new FontIcon("mdi2t-trash-can-outline"));
         deleteBtn.getStyleClass().add("action-btn-danger");
         deleteBtn.setOnAction(e -> {
-            e.consume();
+            e.consume(); // Ensure navigation doesn't trigger
             deleteBranch(branch);
         });
 
@@ -128,39 +130,38 @@ public class BranchManagementController extends VBox {
 
         card.getChildren().addAll(topRow, sep, statsBox);
         
-        // Hover effects
-        card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: derive(-card-bg, 5%); -fx-border-color: #6366F1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(99,102,241,0.2), 15, 0, 0, 0);"));
-        card.setOnMouseExited(e -> card.setStyle("-fx-background-color: -card-bg; -fx-border-color: -card-border; -fx-border-radius: 12; -fx-background-radius: 12; -fx-cursor: hand;"));
-
-        // Navigation
+        // Requirement 1: Inject Mouse Event
         card.setOnMouseClicked(event -> handleBranchClick(branch));
 
         return card;
     }
 
+    // Requirement 2: The Navigation Method
     private void handleBranchClick(Branch branch) {
+        // Requirement 4: Debugging Check
         System.out.println("Branch clicked: " + branch.getName());
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/FinancialTracking.fxml"));
             VBox view = loader.load();
-            FinancialTrackingController controller = loader.getController();
-            controller.initData(branch);
             
-            // Navigate using the dashboard controller
-            if (getScene() != null && getScene().getRoot() instanceof AdminDashboardController dashboard) {
-                dashboard.openPage(view, "Financial Tracking: " + branch.getName());
-            } else {
-                // Fallback for standalone testing or nested roots
-                System.err.println("Dashboard not found in scene root.");
-            }
+            // Crucial: Pass the branch object to the controller before showing
+            FinancialTrackingController controller = loader.getController();
+            controller.initData(branch); // Requirement 2 & 5: Using initData
+            
+            // Get AdminDashboardController to swap content
+            AdminDashboardController dashboard = (AdminDashboardController) getScene().getRoot();
+            dashboard.openPage(view, "Financial Tracking: " + branch.getName());
+            
         } catch (IOException ex) {
             ex.printStackTrace();
+            System.err.println("Failed to load FinancialTracking.fxml: " + ex.getMessage());
         }
     }
 
     private HBox statRow(String label, String value, String color) {
         HBox row = new HBox();
-      Label lbl = new Label(label);
+        Label lbl = new Label(label);
         lbl.setStyle("-fx-text-fill: -text-secondary; -fx-font-size: 12px;");
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);

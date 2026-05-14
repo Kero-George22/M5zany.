@@ -26,7 +26,7 @@ public class FinancialTrackingController {
      * Receives branch data from the navigation source.
      * Triggers real-time data fetch.
      */
-    public void setBranchData(Branch branch) {
+    public void initData(Branch branch) {
         this.currentBranch = branch;
         updateUI();
     }

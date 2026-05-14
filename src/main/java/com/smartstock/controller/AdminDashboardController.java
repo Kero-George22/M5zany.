@@ -151,7 +151,7 @@ public class AdminDashboardController extends VBox {
 
         if (isAdmin) {
             MFXButton branchBtn = addNav(sidebar, "mdi2d-domain", "Branches", false);
-            branchBtn.setOnAction(e -> openPage(new BranchManagementController(authService, stage), "Branches"));
+            branchBtn.setOnAction(e -> openPage(new BranchesController(authService, stage), "Branches"));
 
             MFXButton usersBtn = addNav(sidebar, "mdi2a-account-group", "Users", false);
             usersBtn.setOnAction(e -> openPage(new UserManagementController(authService, stage), "Users"));
@@ -325,7 +325,7 @@ public class AdminDashboardController extends VBox {
         unreadAlertsLabel   = new Label("0");
 
         VBox branchCard = statCard("BRANCHES",      branchCountLabel,    "mdi2m-map-marker-outline", "#3B82F6");
-        branchCard.setOnMouseClicked(e -> openPage(new BranchManagementController(authService, stage), "Branches"));
+        branchCard.setOnMouseClicked(e -> openPage(new BranchesController(authService, stage), "Branches"));
         branchCard.setStyle(branchCard.getStyle() + "-fx-cursor: hand;");
 
         VBox productsCard = statCard("PRODUCTS",    totalProductsLabel,  "mdi2c-cube-outline", "#10B981");
