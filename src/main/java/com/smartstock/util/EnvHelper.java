@@ -12,13 +12,14 @@ public class EnvHelper {
     static {
         // Try multiple candidate locations for the .env file
         String[] candidates = {
-            ".env",                                          // current working directory
-            System.getProperty("user.dir") + "/.env",       // explicit working dir
-            System.getProperty("user.dir") + "/ERP-main/.env", // nested project root
-            getJarDirectory() + "/.env",                    // next to the JAR
-            getJarDirectory() + "/../.env",                 // one level up from JAR
-            getJarDirectory() + "/../../.env",              // two levels up (from target/classes)
-            "c:/Users/kirols/Desktop/ERP-main/ERP-main/.env"// Absolute fallback
+            ".env",                                                                    // current working directory
+            System.getProperty("user.dir") + "/.env",                                 // explicit working dir
+            System.getProperty("user.dir") + "/ERP-main/.env",                        // nested project root
+            getJarDirectory() + "/.env",                                               // next to the JAR
+            getJarDirectory() + "/../.env",                                            // one level up from JAR
+            getJarDirectory() + "/../../.env",                                         // two levels up (from target/classes)
+            "c:/Users/Bios/Documents/JAVA Avanced/M5zany/.env",                       // Absolute fallback (this machine)
+            "c:/Users/kirols/Desktop/ERP-main/ERP-main/.env"                          // Absolute fallback (old machine)
         };
 
         boolean loaded = false;

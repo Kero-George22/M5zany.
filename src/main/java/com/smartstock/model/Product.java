@@ -50,7 +50,6 @@ public class Product implements PhantomEntity {
 
     public String getQrCodePath() { return qrCodePath; }
     public void setQrCodePath(String qrCodePath) { this.qrCodePath = qrCodePath; }
-
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
 

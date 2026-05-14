@@ -6,9 +6,8 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-
 public class DatabaseConnection {
-  private static final String DB_URL = EnvHelper.get("DB_URL", "jdbc:mysql://localhost:3306/smartstock");
+    private static final String DB_URL = EnvHelper.get("DB_URL", "jdbc:mysql://localhost:3307/smartstock_erp?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true");
     private static final String USERNAME = EnvHelper.get("DB_USER", "root");
     private static final String PASSWORD = EnvHelper.get("DB_PASS", "1234");
     private static HikariDataSource dataSource;

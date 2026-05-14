@@ -166,6 +166,9 @@ public class AdminDashboardController extends VBox {
         MFXButton alertsBtn = addNav(sidebar, "mdi2b-bell", "Alerts", false);
         alertsBtn.setOnAction(e -> openPage(new AlertManagementController(authService, stage), "Alerts"));
 
+        Label phase2Lbl = makeSectionLabel("PHASE 2 FEATURES");
+        sidebar.getChildren().add(phase2Lbl);
+
         MFXButton resourceBtn = addNav(sidebar, "mdi2c-chart-timeline-variant", "Resource Tracking", false);
         resourceBtn.setOnAction(e -> {
             try {
@@ -175,6 +178,18 @@ public class AdminDashboardController extends VBox {
                 showAlert("Navigation Error", "Could not load Resource Tracking view.");
             }
         });
+
+        Label analyticsLbl = makeSectionLabel("ANALYTICS");
+        sidebar.getChildren().add(analyticsLbl);
+
+        MFXButton pricingBtn = addNav(sidebar, "mdi2r-robot", "AI Pricing", false);
+        pricingBtn.setOnAction(e -> openPage(new DynamicPricingController(authService, stage), "AI Pricing"));
+
+        MFXButton analysisBtn = addNav(sidebar, "mdi2c-chart-bar", "Product Analysis", false);
+        analysisBtn.setOnAction(e -> openPage(new ProductAnalysisController(authService, stage), "Product Analysis"));
+
+        MFXButton chartBtn = addNav(sidebar, "mdi2c-chart-line", "Live Chart", false);
+        chartBtn.setOnAction(e -> openPage(new InventoryChartController(authService, stage), "Live Chart"));
 
         if (user != null && (user.isAdmin() || user.isManager())) {
             Label repLbl = makeSectionLabel("REPORTS");

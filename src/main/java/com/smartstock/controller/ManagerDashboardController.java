@@ -141,6 +141,17 @@ public class ManagerDashboardController extends VBox {
             }
         });
 
+        sidebar.getChildren().add(makeSectionLabel("ANALYTICS"));
+
+        Button pricingBtn = addNav(sidebar, "🤖", "AI Pricing", false);
+        pricingBtn.setOnAction(e -> openPage(new DynamicPricingController(authService, stage), "AI Pricing"));
+
+        Button analysisBtn = addNav(sidebar, "📊", "Product Analysis", false);
+        analysisBtn.setOnAction(e -> openPage(new ProductAnalysisController(authService, stage), "Product Analysis"));
+
+        Button chartBtn = addNav(sidebar, "📈", "Live Chart", false);
+        chartBtn.setOnAction(e -> openPage(new InventoryChartController(authService, stage), "Live Chart"));
+
         sidebar.getChildren().add(makeSectionLabel("ACTIONS"));
 
         Button sendAlertBtn = addNav(sidebar, "📢", "Send Alert", false);

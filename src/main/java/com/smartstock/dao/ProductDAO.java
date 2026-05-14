@@ -146,7 +146,6 @@ public class ProductDAO {
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, product.getName());
             stmt.setString(2, product.getBarcode());
-            
             // Auto-generate QR code if not provided
             String qrCode = product.getQrCode();
             String qrCodePath = product.getQrCodePath();
