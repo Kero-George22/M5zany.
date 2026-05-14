@@ -26,6 +26,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import com.smartstock.network.SocketClient;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -463,6 +464,9 @@ public class CashierDashboardController extends VBox {
                     tx.setTransactionId(txnId);
                     tx.setBranchName("Branch #" + branchId);
                     exportAndOfferInvoiceDownload(tx);
+                    
+                    // Send to Admin Server in real-time
+                    SocketClient.getInstance().sendTransaction(tx);
                 }
                 cartItems.clear(); updateTotal(); loadProducts();
                 showStatus(String.format("✅ Sale complete! Total: %.2f EGP", total), true);

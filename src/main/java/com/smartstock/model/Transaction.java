@@ -1,5 +1,7 @@
 package com.smartstock.model;
 
+import java.io.Serializable;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
  * payment_method: CASH | CARD | WALLET
  * status: COMPLETED | REFUNDED | VOIDED
  */
-public class Transaction implements PhantomEntity {
+public class Transaction implements PhantomEntity, Serializable {
     private int transactionId;
     private int branchId;
     private int cashierId;

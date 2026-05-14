@@ -142,4 +142,30 @@ public class TransactionDAO {
         try { t.setBranchName(rs.getString("branch_name")); } catch (SQLException ignored) {}
         return t;
     }
+    public java.util.Map<String, Double> getFinancialSummary(int branchId, java.time.LocalDate date) {
+        java.util.Map<String, Double> summary = new java.util.HashMap<>();
+        String sql = "SELECT " +
+                "COALESCE(SUM(t.final_amount), 0) as revenue, " +
+                "COALESCE(SUM(ti.quantity * p.cost_price), 0) as expenses " +
+                "FROM transactions t " +
+                "JOIN transaction_items ti ON t.transaction_id = ti.transaction_id " +
+                "JOIN products p ON ti.product_id = p.id " +
+                "WHERE t.branch_id = ? AND DATE(t.transaction_at) = ? AND t.status = 'COMPLETED'";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, branchId);
+            stmt.setDate(2, Date.valueOf(date));
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    double revenue = rs.getDouble("revenue");
+                    double expenses = rs.getDouble("expenses");
+                    summary.put("revenue", revenue);
+                    summary.put("expenses", expenses);
+                    summary.put("profit", revenue - expenses);
+                }
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+        return summary;
+    }
 }

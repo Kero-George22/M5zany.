@@ -15,12 +15,16 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
+import com.smartstock.dao.TransactionDAO;
+import java.time.LocalDate;
 
 public class BranchDetailController extends VBox {
 
@@ -29,6 +33,7 @@ public class BranchDetailController extends VBox {
     private final Stage stage;
     private final ProductDAO productDAO = new ProductDAO();
     private final UserDAO userDAO = new UserDAO();
+    private final TransactionDAO transactionDAO = new TransactionDAO();
 
     public BranchDetailController(Branch branch, AuthService authService, Stage stage) {
         this.branch = branch;
@@ -54,6 +59,7 @@ public class BranchDetailController extends VBox {
         content.getChildren().add(printBtn);
 
         buildInfoCards(content);
+        buildFinancialSection(content);
         buildProductsSection(content);
         buildUsersSection(content);
 
@@ -107,6 +113,51 @@ public class BranchDetailController extends VBox {
         VBox header = new VBox(14, titleRow, chipsRow);
         header.setStyle("-fx-background-color: -card-bg; -fx-background-radius: 14; -fx-padding: 22; -fx-border-color: -card-border; -fx-border-radius: 14; -fx-border-width: 1;");
         parent.getChildren().add(header);
+    }
+
+    private void buildFinancialSection(VBox parent) {
+        Map<String, Double> stats = transactionDAO.getFinancialSummary(branch.getId(), LocalDate.now());
+        
+        HBox sectionHeader = new HBox(10);
+        sectionHeader.setAlignment(Pos.CENTER_LEFT);
+        FontIcon fIcon = new FontIcon("mdi2c-chart-areaspline");
+        fIcon.setIconSize(18);
+        fIcon.setIconColor(Color.web("#6366F1"));
+        Label title = new Label("DAILY FINANCIAL MONITORING");
+        title.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: -text-primary; -fx-letter-spacing: 1px;");
+        sectionHeader.getChildren().addAll(fIcon, title);
+
+        HBox statsRow = new HBox(16);
+        statsRow.getChildren().addAll(
+            financialCard("DAILY REVENUE", stats.getOrDefault("revenue", 0.0), "mdi2c-cash-multiple", "#10B981"),
+            financialCard("DAILY EXPENSES", stats.getOrDefault("expenses", 0.0), "mdi2c-cart-arrow-down", "#EF4444"),
+            financialCard("DAILY PROFIT", stats.getOrDefault("profit", 0.0), "mdi2c-trending-up", "#6366F1")
+        );
+
+        VBox container = new VBox(15, sectionHeader, statsRow);
+        container.setStyle("-fx-background-color: -card-bg; -fx-background-radius: 14; -fx-padding: 22; -fx-border-color: -card-border; -fx-border-radius: 14; -fx-border-width: 1;");
+        parent.getChildren().add(container);
+    }
+
+    private VBox financialCard(String title, double value, String iconCode, String color) {
+        VBox card = new VBox(8);
+        HBox.setHgrow(card, Priority.ALWAYS);
+        card.setStyle("-fx-background-color: -bg-color; -fx-background-radius: 10; -fx-padding: 15; -fx-border-color: -card-border; -fx-border-radius: 10;");
+        
+        Label titleLbl = new Label(title);
+        titleLbl.setStyle("-fx-text-fill: -text-secondary; -fx-font-size: 11px; -fx-font-weight: bold;");
+        
+        HBox valRow = new HBox(10);
+        valRow.setAlignment(Pos.CENTER_LEFT);
+        FontIcon icon = new FontIcon(iconCode);
+        icon.setIconSize(24);
+        icon.setIconColor(Color.web(color));
+        Label valLbl = new Label(String.format("EGP %.2f", value));
+        valLbl.setStyle("-fx-text-fill: " + color + "; -fx-font-size: 18px; -fx-font-weight: bold;");
+        valRow.getChildren().addAll(icon, valLbl);
+        
+        card.getChildren().addAll(titleLbl, valRow);
+        return card;
     }
 
     private HBox infoChip(String iconCode, String text, String color) {

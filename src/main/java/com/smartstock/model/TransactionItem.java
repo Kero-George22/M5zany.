@@ -1,9 +1,11 @@
 package com.smartstock.model;
 
+import java.io.Serializable;
+
 /**
  * Maps to the transaction_items table (M4 — POS line items).
  */
-public class TransactionItem implements PhantomEntity {
+public class TransactionItem implements PhantomEntity, Serializable {
     private int itemId;
     private int transactionId;
     private int productId;

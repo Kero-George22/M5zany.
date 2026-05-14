@@ -5,6 +5,7 @@ import com.smartstock.model.Branch;
 import com.smartstock.model.Product;
 import com.smartstock.model.User;
 import com.smartstock.service.*;
+import com.smartstock.network.BranchServer;
 import com.smartstock.util.CSVExporter;
 import com.smartstock.util.NavigationHelper;
 import com.smartstock.util.PDFExporter;
@@ -78,6 +79,11 @@ public class AdminDashboardController extends VBox {
         this.branchService       = new BranchService();
         this.weeklySummaryService = new WeeklySummaryService();
         this.alertDAO            = new AlertDAO();
+
+        // Start Real-Time Monitoring Server
+        if (authService.getCurrentUser().isAdmin()) {
+            new Thread(new BranchServer()).start();
+        }
 
         com.smartstock.util.ThemeManager.applyTheme(this);
         setSpacing(0);
