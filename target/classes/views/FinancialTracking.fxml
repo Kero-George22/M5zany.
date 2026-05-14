@@ -62,7 +62,7 @@
         <!-- Profit Card -->
         <VBox GridPane.columnIndex="2" styleClass="card" spacing="10" style="-fx-padding: 20; -fx-border-color: rgba(99,102,241,0.3);">
             <HBox alignment="CENTER_LEFT" spacing="10">
-                <FontIcon iconLiteral="mdi2c-trending-up" iconSize="20" iconColor="#6366F1"/>
+                <FontIcon iconLiteral="mdi2t-trending-up" iconSize="20" iconColor="#6366F1"/>
                 <Label text="TOTAL PROFIT" style="-fx-text-fill: -text-secondary; -fx-font-size: 11px; -fx-font-weight: bold;"/>
             </HBox>
             <Label fx:id="profitLabel" text="EGP 0.00" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #6366F1;"/>

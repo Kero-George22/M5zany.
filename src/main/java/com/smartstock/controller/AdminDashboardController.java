@@ -176,9 +176,6 @@ public class AdminDashboardController extends VBox {
             }
         });
 
-        MFXButton orchestrateAlertsBtn = addNav(sidebar, "mdi2b-bell-alert", "Inventory Alerts", false);
-        orchestrateAlertsBtn.setOnAction(e -> openPage(new AlertManagementController(authService, stage), "Inventory Alerts"));
-
         if (user != null && (user.isAdmin() || user.isManager())) {
             Label repLbl = makeSectionLabel("REPORTS");
             sidebar.getChildren().add(repLbl);

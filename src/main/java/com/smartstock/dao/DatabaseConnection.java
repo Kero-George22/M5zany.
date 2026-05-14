@@ -8,10 +8,11 @@ import java.sql.SQLException;
 
 
 public class DatabaseConnection {
-  private static final String DB_URL = "jdbc:mysql://localhost:3306/smartstock?connectTimeout=5000&socketTimeout=5000&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true";
-private static final String USERNAME = "root";
-private static final String PASSWORD = "1234";
+  private static final String DB_URL = EnvHelper.get("DB_URL", "jdbc:mysql://localhost:3306/smartstock");
+    private static final String USERNAME = EnvHelper.get("DB_USER", "root");
+    private static final String PASSWORD = EnvHelper.get("DB_PASS", "1234");
     private static HikariDataSource dataSource;
+
 
     static {
         try {
