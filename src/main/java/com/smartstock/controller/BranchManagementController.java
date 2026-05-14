@@ -109,7 +109,7 @@ public class BranchManagementController extends VBox {
         deleteBtn.setGraphic(new FontIcon("mdi2t-trash-can-outline"));
         deleteBtn.getStyleClass().add("action-btn-danger");
         deleteBtn.setOnAction(e -> {
-            e.consume();
+            e.consume(); // Prevent navigation event when clicking delete
             deleteBranch(branch);
         });
 
@@ -126,9 +126,22 @@ public class BranchManagementController extends VBox {
 
         card.getChildren().addAll(topRow, sep, statsBox);
         
+        // Hover effects
+        card.setOnMouseEntered(e -> card.setStyle("-fx-background-color: derive(-card-bg, 5%); -fx-border-color: #6366F1; -fx-border-radius: 12; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(99,102,241,0.2), 15, 0, 0, 0);"));
+        card.setOnMouseExited(e -> card.setStyle("-fx-background-color: -card-bg; -fx-border-color: -card-border; -fx-border-radius: 12; -fx-background-radius: 12; -fx-cursor: hand;"));
+
         card.setOnMouseClicked(e -> {
-            AdminDashboardController dashboard = (AdminDashboardController) getScene().getRoot();
-            dashboard.openPage(new BranchDetailController(branch, authService, stage), "Branch: " + branch.getName());
+            try {
+                javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/views/FinancialTracking.fxml"));
+                VBox view = loader.load();
+                FinancialTrackingController controller = loader.getController();
+                controller.setBranchData(branch);
+                
+                AdminDashboardController dashboard = (AdminDashboardController) getScene().getRoot();
+                dashboard.openPage(view, "Financial Tracking: " + branch.getName());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         });
 
         return card;

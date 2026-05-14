@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.smartstock.controller.FinancialTrackingController"
+      spacing="24" styleClass="root" stylesheets="@../styles/main.css">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <!-- Header Section -->
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <StackPane style="-fx-background-color: rgba(99,102,241,0.15); -fx-background-radius: 10;" prefWidth="42" prefHeight="42">
+            <FontIcon iconLiteral="mdi2c-chart-areaspline" iconSize="24" iconColor="#6366F1"/>
+        </StackPane>
+        <VBox spacing="2">
+            <Label fx:id="branchNameLabel" text="Branch Name" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: -text-primary;"/>
+            <Label fx:id="branchIdLabel" text="Branch ID: #" style="-fx-font-size: 13px; -fx-text-fill: -text-secondary;"/>
+        </VBox>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="REFRESH DATA" onAction="#refreshData" styleClass="primary-button">
+            <graphic>
+                <FontIcon iconLiteral="mdi2r-refresh" iconSize="16" iconColor="white"/>
+            </graphic>
+        </Button>
+    </HBox>
+
+    <!-- Stats Grid -->
+    <GridPane hgap="20" vgap="20">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="33.3"/>
+            <ColumnConstraints percentWidth="33.3"/>
+            <ColumnConstraints percentWidth="33.3"/>
+        </columnConstraints>
+
+        <!-- Revenue Card -->
+        <VBox GridPane.columnIndex="0" styleClass="card" spacing="10" style="-fx-padding: 20; -fx-border-color: rgba(16,185,129,0.3);">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <FontIcon iconLiteral="mdi2c-cash-multiple" iconSize="20" iconColor="#10B981"/>
+                <Label text="TOTAL REVENUE" style="-fx-text-fill: -text-secondary; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+            </HBox>
+            <Label fx:id="revenueLabel" text="EGP 0.00" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #10B981;"/>
+            <Label text="Daily processed sales" style="-fx-text-fill: -text-secondary; -fx-font-size: 10px;"/>
+        </VBox>
+
+        <!-- Expenses Card -->
+        <VBox GridPane.columnIndex="1" styleClass="card" spacing="10" style="-fx-padding: 20; -fx-border-color: rgba(239,68,68,0.3);">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <FontIcon iconLiteral="mdi2c-cart-arrow-down" iconSize="20" iconColor="#EF4444"/>
+                <Label text="TOTAL EXPENSES" style="-fx-text-fill: -text-secondary; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+            </HBox>
+            <Label fx:id="expensesLabel" text="EGP 0.00" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #EF4444;"/>
+            <Label text="Daily inventory costs" style="-fx-text-fill: -text-secondary; -fx-font-size: 10px;"/>
+        </VBox>
+
+        <!-- Profit Card -->
+        <VBox GridPane.columnIndex="2" styleClass="card" spacing="10" style="-fx-padding: 20; -fx-border-color: rgba(99,102,241,0.3);">
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <FontIcon iconLiteral="mdi2c-trending-up" iconSize="20" iconColor="#6366F1"/>
+                <Label text="TOTAL PROFIT" style="-fx-text-fill: -text-secondary; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+            </HBox>
+            <Label fx:id="profitLabel" text="EGP 0.00" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #6366F1;"/>
+            <Label fx:id="marginLabel" text="Margin: 0%" style="-fx-text-fill: -text-secondary; -fx-font-size: 10px;"/>
+        </VBox>
+    </GridPane>
+
+    <!-- Additional Details Section -->
+    <VBox styleClass="card" VBox.vgrow="ALWAYS" spacing="15" style="-fx-padding: 24;">
+        <Label text="TRANSACTION METRICS" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: -text-primary;"/>
+        <Separator style="-fx-opacity: 0.1;"/>
+        
+        <HBox spacing="40">
+            <VBox spacing="5">
+                <Label text="Transaction Count" style="-fx-text-fill: -text-secondary; -fx-font-size: 12px;"/>
+                <Label fx:id="transactionCountLabel" text="0" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: -text-primary;"/>
+            </VBox>
+            <VBox spacing="5">
+                <Label text="Average Ticket Size" style="-fx-text-fill: -text-secondary; -fx-font-size: 12px;"/>
+                <Label fx:id="avgTicketLabel" text="EGP 0.00" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: -text-primary;"/>
+            </VBox>
+            <VBox spacing="5">
+                <Label text="Operational Status" style="-fx-text-fill: -text-secondary; -fx-font-size: 12px;"/>
+                <HBox alignment="CENTER_LEFT" spacing="6">
+                    <Region prefWidth="8" prefHeight="8" style="-fx-background-color: #10B981; -fx-background-radius: 4;"/>
+                    <Label text="Real-time Sync Active" style="-fx-font-size: 13px; -fx-text-fill: #10B981; -fx-font-weight: bold;"/>
+                </HBox>
+            </VBox>
+        </HBox>
+
+        <Region VBox.vgrow="ALWAYS"/>
+        
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Button text="Export Daily PDF" style="-fx-background-color: transparent; -fx-border-color: -card-border; -fx-text-fill: -text-secondary; -fx-border-radius: 6;"/>
+            <Button text="Close Tracking" onAction="#handleClose" style="-fx-background-color: transparent; -fx-text-fill: #EF4444; -fx-font-weight: bold;"/>
+        </HBox>
+    </VBox>
+
+</VBox>
