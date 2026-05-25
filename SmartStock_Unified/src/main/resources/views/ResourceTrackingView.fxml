@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="15" styleClass="main-container" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smartstock.controller.ResourceTrackingController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <!-- Header -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Resource Tracking &amp; History" styleClass="header-label">
+            <font>
+                <Font name="System Bold" size="24"/>
+            </font>
+        </Label>
+        <Region HBox.hgrow="ALWAYS"/>
+        <ComboBox fx:id="branchComboBox" promptText="Select Branch" prefWidth="200"/>
+        <ComboBox fx:id="periodComboBox" promptText="Time Period" prefWidth="150"/>
+        <Button text="Refresh" onAction="#handleRefresh" styleClass="secondary-button"/>
+    </HBox>
+    
+    <!-- Summary Statistics Panel -->
+    <VBox spacing="10" styleClass="stats-panel">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+        <Label text="Movement Summary" styleClass="section-label">
+            <font>
+                <Font name="System Bold" size="14"/>
+            </font>
+        </Label>
+        <HBox spacing="30">
+            <VBox spacing="5">
+                <Label text="Total IN:" styleClass="stat-label"/>
+                <Label fx:id="totalInLabel" text="0" styleClass="stat-value" style="-fx-text-fill: #27ae60;">
+                    <font>
+                        <Font name="System Bold" size="20"/>
+                    </font>
+                </Label>
+            </VBox>
+            <VBox spacing="5">
+                <Label text="Total OUT:" styleClass="stat-label"/>
+                <Label fx:id="totalOutLabel" text="0" styleClass="stat-value" style="-fx-text-fill: #e74c3c;">
+                    <font>
+                        <Font name="System Bold" size="20"/>
+                    </font>
+                </Label>
+            </VBox>
+            <VBox spacing="5">
+                <Label text="Transfers:" styleClass="stat-label"/>
+                <Label fx:id="totalTransferLabel" text="0" styleClass="stat-value" style="-fx-text-fill: #3498db;">
+                    <font>
+                        <Font name="System Bold" size="20"/>
+                    </font>
+                </Label>
+            </VBox>
+            <VBox spacing="5">
+                <Label text="Adjustments:" styleClass="stat-label"/>
+                <Label fx:id="totalAdjustmentLabel" text="0" styleClass="stat-value" style="-fx-text-fill: #f39c12;">
+                    <font>
+                        <Font name="System Bold" size="20"/>
+                    </font>
+                </Label>
+            </VBox>
+            <VBox spacing="5">
+                <Label text="Net Movement:" styleClass="stat-label"/>
+                <Label fx:id="netMovementLabel" text="0" styleClass="stat-value">
+                    <font>
+                        <Font name="System Bold" size="20"/>
+                    </font>
+                </Label>
+            </VBox>
+        </HBox>
+    </VBox>
+    
+    <!-- Movement History Table -->
+    <VBox spacing="10" VBox.vgrow="ALWAYS">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Movement History" styleClass="section-label">
+                <font>
+                    <Font name="System Bold" size="14"/>
+                </font>
+            </Label>
+            <TextField fx:id="searchField" promptText="Search by product..." prefWidth="200"/>
+            <Button text="Search" onAction="#handleSearch" styleClass="secondary-button"/>
+            <Button text="Export" onAction="#handleExport" styleClass="secondary-button"/>
+        </HBox>
+        
+        <TableView fx:id="movementTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="dateColumn" text="Date/Time" prefWidth="150"/>
+                <TableColumn fx:id="typeColumn" text="Type" prefWidth="100"/>
+                <TableColumn fx:id="productColumn" text="Product" prefWidth="200"/>
+                <TableColumn fx:id="branchColumn" text="Branch" prefWidth="150"/>
+                <TableColumn fx:id="quantityColumn" text="Quantity" prefWidth="100"/>
+                <TableColumn fx:id="userColumn" text="User" prefWidth="150"/>
+                <TableColumn fx:id="notesColumn" text="Notes" prefWidth="250"/>
+            </columns>
+        </TableView>
+    </VBox>
+    
+    <!-- Daily Movement Chart Area -->
+    <VBox spacing="10" VBox.vgrow="ALWAYS">
+        <Label text="Daily Movement Trends" styleClass="section-label">
+            <font>
+                <Font name="System Bold" size="14"/>
+            </font>
+        </Label>
+        <HBox spacing="10" VBox.vgrow="ALWAYS" styleClass="chart-container">
+            <VBox spacing="5" HBox.hgrow="ALWAYS" style="-fx-background-color: #1e1e2e; -fx-padding: 10; -fx-border-radius: 5; -fx-border-color: #333; -fx-border-width: 1;">
+                <Label text="Incoming vs Outgoing" style="-fx-font-weight: bold;"/>
+                <TableView fx:id="dailyTrendTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="trendDateColumn" text="Date" prefWidth="120"/>
+                        <TableColumn fx:id="trendInColumn" text="IN" prefWidth="80"/>
+                        <TableColumn fx:id="trendOutColumn" text="OUT" prefWidth="80"/>
+                        <TableColumn fx:id="trendNetColumn" text="Net" prefWidth="80"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </HBox>
+    </VBox>
+</VBox>

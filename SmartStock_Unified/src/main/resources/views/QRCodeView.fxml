@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="15" styleClass="main-container" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.smartstock.controller.QRCodeController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+    
+    <!-- Header -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="QR Code Generator" styleClass="header-label">
+            <font>
+                <Font name="System Bold" size="24"/>
+            </font>
+        </Label>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="branchLabel" text="Branch: -"/>
+    </HBox>
+    
+    <!-- Product Selection Panel -->
+    <VBox spacing="10" styleClass="entry-panel">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+        <Label text="Product Information" styleClass="section-label">
+            <font>
+                <Font name="System Bold" size="14"/>
+            </font>
+        </Label>
+        <GridPane hgap="10" vgap="10">
+            <Label text="Product:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <ComboBox fx:id="productComboBox" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="250"/>
+            
+            <Label text="Product ID:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="productIdField" GridPane.columnIndex="1" GridPane.rowIndex="1" prefWidth="150" editable="false"/>
+            
+            <Label text="Barcode:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <TextField fx:id="barcodeField" GridPane.columnIndex="1" GridPane.rowIndex="2" prefWidth="200" editable="false"/>
+            
+            <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <TextField fx:id="productNameField" GridPane.columnIndex="1" GridPane.rowIndex="3" prefWidth="300" editable="false"/>
+            
+            <Label text="Category:" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <TextField fx:id="categoryField" GridPane.columnIndex="1" GridPane.rowIndex="4" prefWidth="200" editable="false"/>
+            
+            <Label text="Price:" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+            <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="150" editable="false"/>
+        </GridPane>
+    </VBox>
+    
+    <!-- QR Code Generation Panel -->
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <VBox spacing="10" styleClass="qr-preview-panel">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="QR Code Preview" styleClass="section-label">
+                <font>
+                    <Font name="System Bold" size="14"/>
+                </font>
+            </Label>
+            <VBox spacing="10" alignment="CENTER" style="-fx-background-color: #f8f9fa; -fx-padding: 20; -fx-border-radius: 5; -fx-border-color: #dee2e6;">
+                <ImageView fx:id="qrCodeImageView" fitWidth="200" fitHeight="200" preserveRatio="true"/>
+                <Label fx:id="qrStatusText" text="No QR code generated" style="-fx-text-fill: #6c757d;"/>
+            </VBox>
+        </VBox>
+        
+        <VBox spacing="10" styleClass="qr-actions-panel">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <Label text="Actions" styleClass="section-label">
+                <font>
+                    <Font name="System Bold" size="14"/>
+                </font>
+            </Label>
+            <VBox spacing="10">
+                <Button text="Generate QR Code" onAction="#handleGenerateQRCode" styleClass="primary-button" prefWidth="200"/>
+                <Button text="Save QR Code" onAction="#handleSaveQRCode" styleClass="secondary-button" prefWidth="200" disable="true"/>
+                <Button text="Print QR Code" onAction="#handlePrintQRCode" styleClass="secondary-button" prefWidth="200" disable="true"/>
+                <Button text="Clear" onAction="#handleClear" styleClass="secondary-button" prefWidth="200"/>
+            </VBox>
+            
+            <Separator/>
+            
+            <VBox spacing="5">
+                <Label text="QR Code Data:" style="-fx-font-weight: bold;"/>
+                <TextArea fx:id="qrDataTextArea" prefRowCount="4" prefWidth="200" editable="false" wrapText="true"/>
+            </VBox>
+        </VBox>
+    </HBox>
+    
+    <!-- Existing QR Codes Table -->
+    <VBox spacing="10" VBox.vgrow="ALWAYS">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="Existing QR Codes" styleClass="section-label">
+                <font>
+                    <Font name="System Bold" size="14"/>
+                </font>
+            </Label>
+            <Button text="Refresh" onAction="#handleRefresh" styleClass="secondary-button"/>
+        </HBox>
+        
+        <TableView fx:id="qrCodesTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="qrProductIdColumn" text="Product ID" prefWidth="100"/>
+                <TableColumn fx:id="qrProductNameColumn" text="Product Name" prefWidth="200"/>
+                <TableColumn fx:id="qrBarcodeColumn" text="Barcode" prefWidth="150"/>
+                <TableColumn fx:id="qrPathColumn" text="QR Code Path" prefWidth="300"/>
+                <TableColumn fx:id="qrActionColumn" text="Action" prefWidth="150"/>
+            </columns>
+        </TableView>
+    </VBox>
+</VBox>

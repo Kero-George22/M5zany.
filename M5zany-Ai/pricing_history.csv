@@ -1,0 +1,241 @@
+pricing_id,product_id,branch_id,wholesale_price,quantity,suggested_price,applied_price,ai_reasoning,suggested_at,suggested_by
+1,1,2,9.0,58,16.44,17.5,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-01-10 09:53:00,5
+2,1,2,9.0,97,16.42,17.5,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-02-09 09:22:00,5
+3,1,6,9.0,140,18.67,17.5,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-03-11 09:24:00,17
+4,1,3,9.0,129,17.56,17.5,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-04-10 09:40:00,8
+5,2,2,8.5,151,15.96,16.5,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-01-10 09:36:00,5
+6,2,2,8.5,33,16.48,16.5,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-02-09 09:14:00,5
+7,2,6,8.5,129,15.53,16.5,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-03-11 09:14:00,17
+8,2,4,8.5,63,17.25,16.5,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-04-10 09:21:00,11
+9,3,1,7.5,125,15.37,14.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-01-10 09:20:00,2
+10,3,2,7.5,81,14.32,14.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-02-09 09:11:00,5
+11,3,2,7.5,99,15.4,14.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-03-11 09:28:00,5
+12,3,6,7.5,53,13.97,14.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-04-10 09:52:00,17
+13,4,5,18.0,47,34.94,35.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-01-10 09:52:00,14
+14,4,1,18.0,85,35.95,35.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-02-09 09:52:00,2
+15,4,3,18.0,96,36.18,35.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-03-11 09:17:00,8
+16,4,5,18.0,126,33.08,35.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-04-10 09:31:00,14
+17,5,4,55.0,87,107.03,95.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-01-10 09:07:00,11
+18,5,4,55.0,163,103.64,95.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-02-09 09:30:00,11
+19,5,6,55.0,90,108.74,95.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-03-11 09:15:00,17
+20,5,6,55.0,110,112.18,95.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-04-10 09:20:00,17
+21,6,5,12.0,183,24.14,22.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-01-10 09:02:00,14
+22,6,6,12.0,71,22.88,22.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-02-09 09:20:00,17
+23,6,3,12.0,155,23.29,22.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-03-11 09:17:00,8
+24,6,2,12.0,188,23.93,22.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-04-10 09:11:00,5
+25,7,6,22.0,198,43.17,42.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-01-10 09:28:00,17
+26,7,4,22.0,22,43.43,42.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-02-09 09:35:00,11
+27,7,5,22.0,85,40.25,42.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-03-11 09:30:00,14
+28,7,6,22.0,125,40.99,42.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-04-10 09:27:00,17
+29,8,2,28.0,151,52.05,52.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-01-10 09:45:00,5
+30,8,4,28.0,164,55.65,52.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-02-09 09:39:00,11
+31,8,2,28.0,128,58.36,52.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-03-11 09:23:00,5
+32,8,1,28.0,129,54.08,52.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-04-10 09:27:00,2
+33,9,3,2.8,39,5.5,5.5,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-01-10 09:53:00,8
+34,9,4,2.8,57,5.67,5.5,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-02-09 09:05:00,11
+35,9,6,2.8,34,5.67,5.5,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-03-11 09:47:00,17
+36,9,3,2.8,32,5.75,5.5,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-04-10 09:26:00,8
+37,10,2,1.8,25,3.53,3.5,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-01-10 09:05:00,5
+38,10,4,1.8,194,3.26,3.5,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-02-09 09:52:00,11
+39,10,6,1.8,77,3.46,3.5,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-03-11 09:09:00,17
+40,10,5,1.8,177,3.31,3.5,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-04-10 09:34:00,14
+41,11,5,10.0,186,19.55,19.5,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-01-10 09:34:00,14
+42,11,4,10.0,141,20.07,19.5,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-02-09 09:20:00,11
+43,11,5,10.0,173,20.89,19.5,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-03-11 09:43:00,14
+44,11,6,10.0,198,19.79,19.5,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-04-10 09:04:00,17
+45,12,2,9.0,186,16.83,17.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:30:00,5
+46,12,4,9.0,85,18.67,17.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-02-09 09:05:00,11
+47,12,4,9.0,36,18.87,17.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-03-11 09:51:00,11
+48,12,1,9.0,105,17.52,17.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-04-10 09:47:00,2
+49,13,1,9.0,36,16.51,17.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:30:00,2
+50,13,6,9.0,94,17.02,17.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:49:00,17
+51,13,5,9.0,121,18.67,17.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-03-11 09:54:00,14
+52,13,3,9.0,143,16.7,17.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-04-10 09:30:00,8
+53,14,2,5.0,87,9.05,9.5,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-01-10 09:37:00,5
+54,14,3,5.0,192,9.79,9.5,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-02-09 09:40:00,8
+55,14,5,5.0,103,9.07,9.5,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-03-11 09:19:00,14
+56,14,3,5.0,200,9.4,9.5,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-04-10 09:06:00,8
+57,15,2,65.0,49,129.88,120.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:08:00,5
+58,15,4,65.0,117,123.38,120.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-02-09 09:40:00,11
+59,15,6,65.0,85,124.93,120.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-03-11 09:33:00,17
+60,15,1,65.0,34,121.48,120.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-04-10 09:00:00,2
+61,16,6,25.0,140,48.06,48.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-01-10 09:21:00,17
+62,16,2,25.0,161,46.54,48.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:23:00,5
+63,16,5,25.0,104,48.55,48.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-03-11 09:35:00,14
+64,16,6,25.0,120,45.13,48.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-04-10 09:00:00,17
+65,17,3,18.0,96,37.66,35.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-01-10 09:59:00,8
+66,17,3,18.0,42,32.4,35.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-02-09 09:18:00,8
+67,17,3,18.0,95,36.93,35.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-03-11 09:09:00,8
+68,17,1,18.0,44,32.8,35.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-04-10 09:33:00,2
+69,18,3,6.5,54,11.96,12.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-01-10 09:28:00,8
+70,18,4,6.5,180,12.28,12.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-02-09 09:33:00,11
+71,18,3,6.5,89,13.62,12.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-03-11 09:49:00,8
+72,18,1,6.5,85,12.95,12.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-04-10 09:07:00,2
+73,19,6,7.0,96,14.4,13.5,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-01-10 09:06:00,17
+74,19,3,7.0,155,14.05,13.5,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:46:00,8
+75,19,2,7.0,190,13.34,13.5,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-03-11 09:19:00,5
+76,19,2,7.0,70,14.16,13.5,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-04-10 09:22:00,5
+77,20,1,22.0,160,46.0,42.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:48:00,2
+78,20,2,22.0,125,44.6,42.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-02-09 09:16:00,5
+79,20,5,22.0,89,42.81,42.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-03-11 09:37:00,14
+80,20,4,22.0,111,45.5,42.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-04-10 09:25:00,11
+81,21,4,5.5,175,10.89,10.5,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-01-10 09:04:00,11
+82,21,2,5.5,126,11.02,10.5,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-02-09 09:02:00,5
+83,21,3,5.5,135,10.65,10.5,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-03-11 09:37:00,8
+84,21,5,5.5,79,10.85,10.5,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-04-10 09:23:00,14
+85,22,1,10.0,177,18.6,19.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:10:00,2
+86,22,2,10.0,104,18.77,19.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-02-09 09:36:00,5
+87,22,6,10.0,153,20.96,19.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-03-11 09:42:00,17
+88,22,4,10.0,108,20.11,19.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-04-10 09:06:00,11
+89,23,2,10.5,83,19.8,20.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-01-10 09:20:00,5
+90,23,3,10.5,81,20.67,20.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-02-09 09:46:00,8
+91,23,6,10.5,128,19.44,20.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-03-11 09:12:00,17
+92,23,3,10.5,183,21.4,20.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-04-10 09:40:00,8
+93,24,3,10.0,117,20.35,19.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-01-10 09:17:00,8
+94,24,6,10.0,120,18.56,19.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-02-09 09:10:00,17
+95,24,1,10.0,114,20.07,19.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-03-11 09:38:00,2
+96,24,1,10.0,65,19.04,19.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-04-10 09:28:00,2
+97,25,6,13.0,156,25.52,25.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-01-10 09:05:00,17
+98,25,2,13.0,102,25.54,25.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-02-09 09:53:00,5
+99,25,1,13.0,64,23.92,25.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-03-11 09:09:00,2
+100,25,6,13.0,67,24.3,25.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-04-10 09:55:00,17
+101,26,2,18.0,47,34.52,35.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-01-10 09:28:00,5
+102,26,2,18.0,180,35.64,35.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-02-09 09:11:00,5
+103,26,5,18.0,174,33.91,35.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-03-11 09:30:00,14
+104,26,1,18.0,145,36.54,35.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-04-10 09:14:00,2
+105,27,1,24.0,45,44.46,45.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-01-10 09:22:00,2
+106,27,2,24.0,41,49.17,45.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:10:00,5
+107,27,6,24.0,170,43.38,45.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-03-11 09:36:00,17
+108,27,3,24.0,182,50.17,45.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-04-10 09:45:00,8
+109,28,1,7.5,99,15.26,14.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:32:00,2
+110,28,2,7.5,100,14.88,14.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-02-09 09:22:00,5
+111,28,1,7.5,143,14.99,14.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-03-11 09:19:00,2
+112,28,4,7.5,54,15.28,14.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-04-10 09:10:00,11
+113,29,4,7.5,41,14.42,14.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-01-10 09:49:00,11
+114,29,5,7.5,94,15.23,14.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:34:00,14
+115,29,4,7.5,74,15.04,14.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-03-11 09:57:00,11
+116,29,1,7.5,193,14.09,14.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-04-10 09:22:00,2
+117,30,1,14.0,146,28.08,26.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-01-10 09:59:00,2
+118,30,3,14.0,46,27.19,26.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:54:00,8
+119,30,6,14.0,117,27.03,26.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-03-11 09:47:00,17
+120,30,4,14.0,55,25.61,26.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-04-10 09:57:00,11
+121,31,3,28.0,110,52.33,52.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-01-10 09:40:00,8
+122,31,2,28.0,129,53.15,52.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-02-09 09:19:00,5
+123,31,5,28.0,57,53.16,52.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-03-11 09:03:00,14
+124,31,4,28.0,33,50.43,52.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-04-10 09:22:00,11
+125,32,1,30.0,111,58.24,56.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-01-10 09:12:00,2
+126,32,1,30.0,115,56.2,56.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-02-09 09:54:00,2
+127,32,4,30.0,50,60.88,56.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-03-11 09:35:00,11
+128,32,6,30.0,72,61.97,56.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-04-10 09:15:00,17
+129,33,4,4.5,27,9.07,8.5,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:51:00,11
+130,33,3,4.5,35,8.42,8.5,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-02-09 09:32:00,8
+131,33,3,4.5,160,8.37,8.5,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-03-11 09:44:00,8
+132,33,5,4.5,47,9.08,8.5,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-04-10 09:20:00,14
+133,34,1,10.0,166,18.96,19.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-01-10 09:43:00,2
+134,34,2,10.0,59,20.16,19.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-02-09 09:12:00,5
+135,34,4,10.0,192,20.65,19.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-03-11 09:57:00,11
+136,34,6,10.0,166,18.78,19.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-04-10 09:58:00,17
+137,35,6,28.0,186,52.72,52.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-01-10 09:10:00,17
+138,35,3,28.0,174,52.91,52.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:44:00,8
+139,35,1,28.0,90,52.59,52.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-03-11 09:56:00,2
+140,35,6,28.0,196,57.06,52.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-04-10 09:08:00,17
+141,36,3,12.0,47,23.96,22.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:34:00,8
+142,36,2,12.0,161,21.75,22.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-02-09 09:27:00,5
+143,36,2,12.0,26,21.94,22.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-03-11 09:13:00,5
+144,36,6,12.0,115,24.03,22.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-04-10 09:04:00,17
+145,37,4,6.5,60,12.19,12.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:25:00,11
+146,37,2,6.5,150,13.06,12.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-02-09 09:52:00,5
+147,37,3,6.5,163,12.1,12.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-03-11 09:54:00,8
+148,37,2,6.5,166,12.69,12.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-04-10 09:13:00,5
+149,38,3,40.0,149,82.89,75.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-01-10 09:57:00,8
+150,38,5,40.0,113,83.59,75.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-02-09 09:26:00,14
+151,38,5,40.0,169,72.89,75.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-03-11 09:50:00,14
+152,38,1,40.0,44,79.26,75.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-04-10 09:20:00,2
+153,39,4,14.0,179,26.67,26.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:31:00,11
+154,39,2,14.0,181,26.08,26.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-02-09 09:03:00,5
+155,39,2,14.0,80,26.09,26.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-03-11 09:15:00,5
+156,39,2,14.0,114,26.82,26.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-04-10 09:47:00,5
+157,40,4,15.0,112,27.31,28.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-01-10 09:50:00,11
+158,40,5,15.0,81,31.42,28.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:50:00,14
+159,40,5,15.0,77,29.01,28.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-03-11 09:26:00,14
+160,40,3,15.0,164,27.56,28.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-04-10 09:48:00,8
+161,41,5,85.0,125,176.28,155.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-01-10 09:12:00,14
+162,41,4,85.0,76,168.08,155.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-02-09 09:27:00,11
+163,41,2,85.0,49,154.23,155.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-03-11 09:58:00,5
+164,41,6,85.0,192,169.74,155.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-04-10 09:27:00,17
+165,42,2,70.0,158,128.61,130.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-01-10 09:32:00,5
+166,42,4,70.0,44,130.65,130.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:21:00,11
+167,42,2,70.0,33,142.35,130.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-03-11 09:31:00,5
+168,42,6,70.0,131,143.94,130.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-04-10 09:24:00,17
+169,43,6,18.0,51,37.65,34.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-01-10 09:59:00,17
+170,43,4,18.0,38,36.72,34.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:30:00,11
+171,43,2,18.0,57,34.08,34.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-03-11 09:14:00,5
+172,43,5,18.0,142,35.76,34.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-04-10 09:32:00,14
+173,44,3,22.0,179,44.16,42.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:52:00,8
+174,44,6,22.0,172,43.41,42.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-02-09 09:59:00,17
+175,44,4,22.0,44,40.8,42.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-03-11 09:36:00,11
+176,44,3,22.0,198,42.37,42.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-04-10 09:07:00,8
+177,45,3,14.0,157,27.38,26.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-01-10 09:33:00,8
+178,45,1,14.0,159,28.12,26.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:19:00,2
+179,45,4,14.0,21,25.55,26.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-03-11 09:48:00,11
+180,45,6,14.0,146,27.81,26.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-04-10 09:02:00,17
+181,46,1,12.0,64,22.3,22.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-01-10 09:32:00,2
+182,46,4,12.0,157,25.1,22.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-02-09 09:49:00,11
+183,46,3,12.0,116,21.77,22.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-03-11 09:11:00,8
+184,46,6,12.0,44,24.84,22.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-04-10 09:42:00,17
+185,47,1,45.0,81,88.08,85.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-01-10 09:45:00,2
+186,47,4,45.0,30,82.53,85.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-02-09 09:51:00,11
+187,47,4,45.0,45,90.86,85.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-03-11 09:00:00,11
+188,47,4,45.0,126,81.74,85.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-04-10 09:45:00,11
+189,48,1,38.0,161,77.31,72.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-01-10 09:06:00,2
+190,48,4,38.0,143,70.84,72.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-02-09 09:38:00,11
+191,48,3,38.0,75,73.24,72.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-03-11 09:43:00,8
+192,48,2,38.0,110,71.67,72.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-04-10 09:20:00,5
+193,49,3,15.0,47,31.35,28.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-01-10 09:21:00,8
+194,49,2,15.0,95,27.66,28.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-02-09 09:00:00,5
+195,49,5,15.0,46,29.02,28.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-03-11 09:02:00,14
+196,49,1,15.0,110,27.88,28.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-04-10 09:00:00,2
+197,50,2,60.0,178,114.95,115.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-01-10 09:07:00,5
+198,50,5,60.0,34,116.76,115.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-02-09 09:29:00,14
+199,50,1,60.0,28,125.92,115.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-03-11 09:37:00,2
+200,50,4,60.0,74,110.07,115.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-04-10 09:50:00,11
+201,51,6,28.0,21,53.78,52.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-01-10 09:22:00,17
+202,51,3,28.0,93,51.57,52.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-02-09 09:30:00,8
+203,51,5,28.0,144,56.08,52.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-03-11 09:24:00,14
+204,51,5,28.0,105,53.34,52.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-04-10 09:49:00,14
+205,52,1,55.0,98,106.96,100.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-01-10 09:02:00,2
+206,52,2,55.0,116,112.43,100.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:58:00,5
+207,52,5,55.0,184,115.1,100.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-03-11 09:55:00,14
+208,52,6,55.0,105,113.81,100.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-04-10 09:30:00,17
+209,53,4,22.0,123,41.66,42.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-01-10 09:47:00,11
+210,53,1,22.0,46,39.87,42.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:27:00,2
+211,53,2,22.0,187,41.41,42.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-03-11 09:00:00,5
+212,53,1,22.0,52,41.67,42.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-04-10 09:48:00,2
+213,54,6,14.0,65,29.11,26.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-01-10 09:17:00,17
+214,54,2,14.0,86,28.17,26.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:23:00,5
+215,54,5,14.0,28,28.29,26.0,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-03-11 09:24:00,14
+216,54,6,14.0,83,28.1,26.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-04-10 09:39:00,17
+217,55,1,35.0,184,67.03,65.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-01-10 09:34:00,2
+218,55,4,35.0,196,68.23,65.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:11:00,11
+219,55,5,35.0,146,63.37,65.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-03-11 09:12:00,14
+220,55,4,35.0,82,68.29,65.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-04-10 09:41:00,11
+221,56,6,9.0,136,17.36,17.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-01-10 09:42:00,17
+222,56,4,9.0,167,18.17,17.0,Low turnover item. Reduce margin to 85% to stimulate sales.,2026-02-09 09:06:00,11
+223,56,4,9.0,87,16.63,17.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-03-11 09:31:00,11
+224,56,4,9.0,112,18.37,17.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-04-10 09:00:00,11
+225,57,2,5.0,105,10.35,9.5,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-01-10 09:22:00,5
+226,57,5,5.0,48,9.18,9.5,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-02-09 09:51:00,14
+227,57,6,5.0,36,9.46,9.5,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-03-11 09:17:00,17
+228,57,4,5.0,91,9.59,9.5,Market average in Cairo for this category is aligned. Suggested margin ~95%.,2026-04-10 09:58:00,11
+229,58,3,12.0,24,23.82,22.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-01-10 09:12:00,8
+230,58,3,12.0,98,22.13,22.0,Product near expiry in some branches. Recommend 70% margin to clear stock faster.,2026-02-09 09:30:00,8
+231,58,1,12.0,81,23.82,22.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-03-11 09:10:00,2
+232,58,3,12.0,88,23.09,22.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-04-10 09:10:00,8
+233,59,1,80.0,87,150.95,145.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-01-10 09:20:00,2
+234,59,1,80.0,186,161.76,145.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-02-09 09:04:00,2
+235,59,6,80.0,187,154.91,145.0,Strong brand loyalty (Juhayna/Ariel/Nescafe). Market supports full 95-100% margin.,2026-03-11 09:11:00,17
+236,59,6,80.0,100,159.61,145.0,"Imported product, high acquisition cost. Minimum 90% margin to cover logistics.",2026-04-10 09:24:00,17
+237,60,6,60.0,37,123.35,110.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-01-10 09:06:00,17
+238,60,2,60.0,65,118.11,110.0,Seasonal demand increase observed in data. Suggest 100% margin this period.,2026-02-09 09:53:00,5
+239,60,3,60.0,75,120.96,110.0,High demand product (fast mover). Slight premium of 5% above standard margin recommended.,2026-03-11 09:22:00,8
+240,60,6,60.0,120,125.82,110.0,Competitor pricing at Carrefour Egypt is slightly higher. Recommend matching.,2026-04-10 09:41:00,17

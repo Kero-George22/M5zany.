@@ -1,0 +1,368 @@
+/* M5zany ERP — Dynamic Theme System */
+
+.root.light-theme {
+    -bg-color: #F8FAFC;
+    -card-bg: #FFFFFF;
+    -card-border: #E2E8F0;
+    -text-primary: #0F172A;
+    -text-secondary: #475569;
+    -sidebar-bg: #FFFFFF;
+    -sidebar-border: #E2E8F0;
+    -nav-hover: #F1F5F9;
+    -nav-active-bg: #EEF2FF;
+    -nav-active-border: #4F46E5;
+    -nav-active-text: #4338CA;
+    -accent-color: #4F46E5;
+    -shadow-color: rgba(0,0,0,0.05);
+    -input-bg: #FFFFFF;
+    -input-border: #CBD5E1;
+    -table-header-bg: #F1F5F9;
+}
+
+.root.dark-theme {
+    -bg-color: #0E1116;
+    -card-bg: #1A1D24;
+    -card-border: #2A2F3A;
+    -text-primary: #F8FAFC;
+    -text-secondary: #8B949E;
+    -sidebar-bg: #0E1116;
+    -sidebar-border: #2A2F3A;
+    -nav-hover: #161B22;
+    -nav-active-bg: #1F2937;
+    -nav-active-border: #6366F1;
+    -nav-active-text: #E0E7FF;
+    -accent-color: #6366F1;
+    -shadow-color: rgba(0,0,0,0.5);
+    -input-bg: #15162C;
+    -input-border: #2A2F3A;
+    -table-header-bg: #1A1D24;
+}
+
+.root {
+    /* Default fallback values (dark theme) — overridden by .dark-theme / .light-theme */
+    -bg-color: #0E1116;
+    -card-bg: #1A1D24;
+    -card-border: #2A2F3A;
+    -text-primary: #F8FAFC;
+    -text-secondary: #8B949E;
+    -sidebar-bg: #0E1116;
+    -sidebar-border: #2A2F3A;
+    -nav-hover: #161B22;
+    -nav-active-bg: #1F2937;
+    -nav-active-border: #6366F1;
+    -nav-active-text: #E0E7FF;
+    -accent-color: #6366F1;
+    -shadow-color: rgba(0,0,0,0.5);
+    -input-bg: #15162C;
+    -input-border: #2A2F3A;
+    -table-header-bg: #1A1D24;
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+    -fx-font-size: 13px;
+    -fx-background-color: -bg-color;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    -fx-background-color: -sidebar-bg;
+    -fx-border-color: transparent -sidebar-border transparent transparent;
+    -fx-border-width: 0 1 0 0;
+    -fx-min-width: 52px;
+    -fx-pref-width: 220px;
+}
+
+.sidebar-header {
+    -fx-background-color: -sidebar-bg;
+    -fx-border-color: transparent transparent -sidebar-border transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 16 14 14 14;
+}
+
+.sidebar-logo {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-primary;
+}
+
+.sidebar-sub {
+    -fx-font-size: 10px;
+    -fx-text-fill: -text-secondary;
+}
+
+.nav-section {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-secondary;
+    -fx-padding: 20 16 8 16;
+    -fx-letter-spacing: 1px;
+}
+
+.nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -text-secondary;
+    -fx-font-size: 14px;
+    -fx-padding: 10 16;
+    -fx-alignment: CENTER-LEFT;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-background-radius: 6;
+}
+
+.nav-btn .mfx-ripple-generator {
+    -mfx-ripple-color: -nav-hover;
+}
+
+.nav-btn:hover {
+    -fx-background-color: -nav-hover;
+    -fx-text-fill: -text-primary;
+}
+
+.nav-btn-active {
+    -fx-background-color: -nav-active-bg;
+    -fx-text-fill: -nav-active-text;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 10 16;
+    -fx-alignment: CENTER-LEFT;
+    -fx-cursor: hand;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-color: -nav-active-border;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+
+.nav-btn-danger {
+    -fx-background-color: transparent;
+    -fx-text-fill: #EF4444;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 12 16;
+    -fx-alignment: CENTER-LEFT;
+    -fx-cursor: hand;
+}
+
+.nav-btn-danger:hover {
+    -fx-background-color: rgba(239, 68, 68, 0.1);
+    -fx-text-fill: #F87171;
+}
+
+/* ===== HEADER BAR ===== */
+.header-bar {
+    -fx-background-color: -sidebar-bg;
+    -fx-padding: 10 18;
+    -fx-border-color: transparent transparent -sidebar-border transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.header-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-primary;
+}
+
+/* ===== TYPOGRAPHY ===== */
+.page-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-primary;
+}
+
+.section-title {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-secondary;
+    -fx-padding: 4 0 4 0;
+}
+
+.label {
+    -fx-text-fill: -text-secondary;
+}
+
+/* ===== CARDS ===== */
+.card {
+    -fx-background-color: -card-bg;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-border-color: -card-border;
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4);
+}
+
+/* ===== ALERT BADGE ===== */
+.alert-badge {
+    -fx-background-color: rgba(239,68,68,0.15);
+    -fx-border-color: #EF4444;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-text-fill: #EF4444;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 4 12;
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
+}
+
+.alert-badge-ok {
+    -fx-background-color: rgba(16,185,129,0.15);
+    -fx-border-color: #10B981;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-text-fill: #10B981;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 4 12;
+    -fx-font-size: 11px;
+    -fx-cursor: hand;
+}
+
+/* ===== CONTROLSFX NOTIFICATIONS ===== */
+.notification-bar {
+    -fx-background-color: #1A1D24;
+    -fx-border-color: #6366F1;
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.4), 25, 0, 0, 0);
+}
+
+.notification-bar > .pane {
+    -fx-hgap: 15;
+    -fx-vgap: 5;
+}
+
+.notification-bar > .pane .title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #F8FAFC;
+    -fx-padding: 0 0 5 0;
+}
+
+.notification-bar > .pane .label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #94A3B8;
+}
+
+.notification-bar > .close-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+.notification-bar > .close-button .mark {
+    -fx-background-color: #EF4444;
+}
+
+/* ===== SCROLLBAR ===== */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 7;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -input-border;
+    -fx-background-radius: 4;
+}
+
+.scroll-bar:vertical .thumb:hover { -fx-background-color: -accent-color; }
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+    -fx-opacity: 0;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane > .viewport { -fx-background-color: transparent; }
+
+/* ===== POS ===== */
+.checkout-btn {
+    -fx-background-color: #10B981;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 14 28;
+    -fx-background-radius: 9;
+    -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.4), 8, 0, 0, 3);
+    -fx-cursor: hand;
+}
+
+.checkout-btn:hover { -fx-background-color: #059669; }
+
+.total-label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-primary;
+}
+
+/* ===== CHECKBOX ===== */
+.check-box .box {
+    -fx-background-color: -input-bg;
+    -fx-border-color: -input-border;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.check-box:selected .box {
+    -fx-background-color: -accent-color;
+    -fx-border-color: -accent-color;
+}
+
+.check-box .mark { -fx-background-color: white; }
+.check-box .text { -fx-text-fill: -text-primary; }
+
+/* ===== DIALOG ===== */
+.dialog-pane {
+    -fx-background-color: -card-bg;
+    -fx-border-color: -card-border;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: -table-header-bg;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: -text-primary;
+}
+
+/* ===== TABLE ROWS ===== */
+.table-view .table-row-cell {
+    -fx-border-color: transparent transparent -card-border transparent;
+    -fx-border-width: 0 0 1 0;
+}
+.table-view .table-row-cell:hover {
+    -fx-background-color: -nav-hover;
+}
+.table-view .table-row-cell:selected {
+    -fx-background-color: -nav-active-bg;
+}
+
+/* ===== CONTROLSFX NOTIFICATION POPUP OVERRIDE =====
+   Fixes ClassCastException from ControlsFX notificationpopup.css
+   where CSS variables can't be cast to Paint at parse time.
+   We override with concrete colors here so our stylesheet wins.
+*/
+.notification-bar > .pane {
+    -fx-background-color: #1A1D24;
+    -fx-border-color: #2A2F3A;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 16, 0, 0, 4);
+}
+
+.notification-bar .label {
+    -fx-text-fill: #F8FAFC;
+}
+
+.root.light-theme .notification-bar > .pane {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E8F0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 16, 0, 0, 4);
+}
+
+.root.light-theme .notification-bar .label {
+    -fx-text-fill: #0F172A;
+}

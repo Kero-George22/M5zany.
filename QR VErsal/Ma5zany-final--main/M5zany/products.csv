@@ -1,0 +1,61 @@
+product_id,name,barcode,qr_code_path,category_id,unit,wholesale_price,retail_price,reorder_level,description,created_at
+1,Juhayna Full Cream Milk 1L,6221033001001,qr/p001.png,1,Carton,9.0,17.5,40,UHT full cream milk 1L - Juhayna,2024-01-15 09:00:00
+2,Juhayna Skimmed Milk 1L,6221033001002,qr/p002.png,1,Carton,8.5,16.5,30,UHT skimmed milk 1L - Juhayna,2024-01-15 09:05:00
+3,Labanita Zabady 400g,6221034002001,qr/p003.png,1,Cup,7.5,14.0,25,Full fat natural yogurt 400g,2024-01-15 09:10:00
+4,Kiri Cream Cheese 8 portions,6221035003001,qr/p004.png,1,Box,18.0,35.0,20,Soft cream cheese portions 8-pack,2024-01-15 09:15:00
+5,Farm Frites Eggs 30-pack,6221036004001,qr/p005.png,1,Tray,55.0,95.0,15,Fresh white eggs 30-pack large,2024-01-15 09:20:00
+6,Dina Farms Fresh Milk 1L,6221037005001,qr/p006.png,1,Bottle,12.0,22.0,35,Pasteurised fresh full cream milk,2024-01-15 09:25:00
+7,Puck Cheddar Slices 200g,6221038006001,qr/p007.png,1,Pack,22.0,42.0,20,Processed cheddar cheese slices,2024-01-15 09:30:00
+8,Anchor Butter 200g,6221039007001,qr/p008.png,1,Pack,28.0,52.0,15,Unsalted butter 200g - Anchor,2024-01-15 09:35:00
+9,Baraka Water 1.5L,6221040008001,qr/p009.png,2,Bottle,2.8,5.5,100,Still mineral water 1.5L - Baraka,2024-01-16 09:00:00
+10,Nestle Pure Life 600ml,6221041009001,qr/p010.png,2,Bottle,1.8,3.5,80,Still mineral water 600ml - Nestle,2024-01-16 09:05:00
+11,Juhayna Orange Juice 1L,6221042010001,qr/p011.png,2,Carton,10.0,19.5,40,100% orange juice 1L no added sugar,2024-01-16 09:10:00
+12,Pepsi Cola 1.5L,6221043011001,qr/p012.png,2,Bottle,9.0,17.0,50,Carbonated cola soft drink 1.5L,2024-01-16 09:15:00
+13,7UP 1.5L,6221044012001,qr/p013.png,2,Bottle,9.0,17.0,50,Lemon-lime soft drink 1.5L,2024-01-16 09:20:00
+14,Mirinda Orange 330ml,6221045013001,qr/p014.png,2,Can,5.0,9.5,60,Carbonated orange drink 330ml can,2024-01-16 09:25:00
+15,Nescafe Classic 200g,6221046014001,qr/p015.png,2,Jar,65.0,120.0,20,Instant coffee 200g - Nescafe,2024-01-16 09:30:00
+16,Lipton Yellow Label Tea 100 bags,6221047015001,qr/p016.png,2,Box,25.0,48.0,25,Black tea bags 100 count - Lipton,2024-01-16 09:35:00
+17,Red Bull Energy Drink 250ml,6221048016001,qr/p017.png,2,Can,18.0,35.0,30,Energy drink 250ml can - Red Bull,2024-01-16 09:40:00
+18,Cappy Apple Juice 330ml,6221049017001,qr/p018.png,2,Can,6.5,12.0,50,Apple juice drink 330ml - Cappy,2024-01-16 09:45:00
+19,Lays Classic 80g,6221050018001,qr/p019.png,3,Bag,7.0,13.5,40,Salted potato chips 80g - Lays,2024-01-17 09:00:00
+20,Pringles Original 165g,6221051019001,qr/p020.png,3,Can,22.0,42.0,25,Stackable chips 165g - Pringles,2024-01-17 09:05:00
+21,Chipsy Salt & Vinegar 80g,6221052020001,qr/p021.png,3,Bag,5.5,10.5,40,Salt & vinegar chips 80g - Chipsy,2024-01-17 09:10:00
+22,Twix Chocolate Bar 50g,6221053021001,qr/p022.png,3,Bar,10.0,19.0,30,Chocolate caramel biscuit bar 50g,2024-01-17 09:15:00
+23,Kit Kat 4 Fingers 45g,6221054022001,qr/p023.png,3,Bar,10.5,20.0,30,Wafer chocolate bar 45g - KitKat,2024-01-17 09:20:00
+24,Snickers 50g,6221055023001,qr/p024.png,3,Bar,10.0,19.0,30,Caramel peanut chocolate bar 50g,2024-01-17 09:25:00
+25,Oreo Original 154g,6221056024001,qr/p025.png,3,Pack,13.0,25.0,30,Chocolate cream biscuits 154g,2024-01-17 09:30:00
+26,Digestive Biscuits McVities 250g,6221057025001,qr/p026.png,3,Pack,18.0,35.0,20,Wholemeal wheat biscuits 250g,2024-01-17 09:35:00
+27,White Rice Oryza 2kg,6221058026001,qr/p027.png,4,Bag,24.0,45.0,30,Long grain white rice 2kg - Oryza,2024-01-18 09:00:00
+28,Baraka Pasta Penne 500g,6221059027001,qr/p028.png,4,Pack,7.5,14.0,35,Durum wheat penne pasta 500g,2024-01-18 09:05:00
+29,Baraka Pasta Spaghetti 500g,6221060028001,qr/p029.png,4,Pack,7.5,14.0,35,Durum wheat spaghetti 500g,2024-01-18 09:10:00
+30,El Doha White Sugar 1kg,6221061029001,qr/p030.png,4,Bag,14.0,26.0,25,Refined white granulated sugar 1kg,2024-01-18 09:15:00
+31,Extra Sunflower Oil 1.5L,6221062030001,qr/p031.png,4,Bottle,28.0,52.0,25,Pure sunflower oil 1.5L - Extra,2024-01-18 09:20:00
+32,Afia Corn Oil 1.5L,6221063031001,qr/p032.png,4,Bottle,30.0,56.0,20,Pure corn oil 1.5L - Afia,2024-01-18 09:25:00
+33,Fine Sea Salt 750g,6221064032001,qr/p033.png,4,Pack,4.5,8.5,30,Iodized sea salt 750g - Fine,2024-01-18 09:30:00
+34,Flour Fino 1kg,6221065033001,qr/p034.png,4,Bag,10.0,19.0,25,All-purpose white flour 1kg - Fino,2024-01-18 09:35:00
+35,Heinz Ketchup 570g,6221066034001,qr/p035.png,5,Bottle,28.0,52.0,20,Tomato ketchup 570g - Heinz,2024-01-19 09:00:00
+36,Cairo Canned Tuna in Oil 170g,6221067035001,qr/p036.png,5,Can,12.0,22.0,30,Tuna chunks in sunflower oil 170g,2024-01-19 09:05:00
+37,Del Monte Tomato Paste 135g,6221068036001,qr/p037.png,5,Can,6.5,12.0,35,Concentrated tomato paste 135g,2024-01-19 09:10:00
+38,Americana Corned Beef 340g,6221069037001,qr/p038.png,5,Can,40.0,75.0,15,Corned beef 340g - Americana,2024-01-19 09:15:00
+39,Puck Labneh 200g,6221070038001,qr/p039.png,5,Cup,14.0,26.0,20,Strained yogurt labneh 200g,2024-01-19 09:20:00
+40,Maggi Chicken Bouillon 24 cubes,6221071039001,qr/p040.png,5,Box,15.0,28.0,25,Chicken stock cubes 24-pack - Maggi,2024-01-19 09:25:00
+41,Ariel Powder Detergent 4kg,6221072040001,qr/p041.png,6,Box,85.0,155.0,15,Automatic washing powder 4kg - Ariel,2024-01-20 09:00:00
+42,Persil Color Powder 3kg,6221073041001,qr/p042.png,6,Box,70.0,130.0,15,Color care washing powder 3kg,2024-01-20 09:05:00
+43,Pril Dish Soap 600ml,6221074042001,qr/p043.png,6,Bottle,18.0,34.0,20,Concentrated dish soap 600ml - Pril,2024-01-20 09:10:00
+44,Comfort Blue Fabric Softener 1L,6221075043001,qr/p044.png,6,Bottle,22.0,42.0,20,Fabric softener blue 1L - Comfort,2024-01-20 09:15:00
+45,Clorox Bleach 750ml,6221076044001,qr/p045.png,6,Bottle,14.0,26.0,20,Multi-purpose bleach 750ml - Clorox,2024-01-20 09:20:00
+46,Scotch Brite Sponge 3-pack,6221077045001,qr/p046.png,6,Pack,12.0,22.0,25,Scrubbing sponges 3-pack - Scotch Brite,2024-01-20 09:25:00
+47,Head & Shoulders Shampoo 400ml,6221078046001,qr/p047.png,7,Bottle,45.0,85.0,15,Anti-dandruff shampoo 400ml,2024-01-21 09:00:00
+48,Dove Body Wash 500ml,6221079047001,qr/p048.png,7,Bottle,38.0,72.0,15,Moisturizing body wash 500ml - Dove,2024-01-21 09:05:00
+49,Signal Toothpaste 100ml,6221080048001,qr/p049.png,7,Tube,15.0,28.0,20,Whitening toothpaste 100ml - Signal,2024-01-21 09:10:00
+50,Gillette Mach3 Razor 2-pack,6221081049001,qr/p050.png,7,Pack,60.0,115.0,10,3-blade disposable razors 2-pack,2024-01-21 09:15:00
+51,AXE Deodorant Spray 150ml,6221082050001,qr/p051.png,7,Can,28.0,52.0,15,Body spray deodorant 150ml - AXE,2024-01-21 09:20:00
+52,Americana Frozen Chicken Strips 500g,6221083051001,qr/p052.png,8,Pack,55.0,100.0,20,Breaded chicken strips 500g - Americana,2024-01-22 09:00:00
+53,Bird Eye Frozen Peas 450g,6221084052001,qr/p053.png,8,Pack,22.0,42.0,20,Garden peas frozen 450g - Bird Eye,2024-01-22 09:05:00
+54,Kwality Walls Cornetto 120ml,6221085053001,qr/p054.png,8,Piece,14.0,26.0,30,Cone ice cream 120ml - Cornetto,2024-01-22 09:10:00
+55,Molto Frozen Croissant 6-pack,6221086054001,qr/p055.png,8,Pack,35.0,65.0,15,Butter croissants frozen 6-pack,2024-01-22 09:15:00
+56,Fino White Toast Bread 600g,6221087055001,qr/p056.png,9,Loaf,9.0,17.0,30,Sliced white sandwich bread 600g,2024-01-23 09:00:00
+57,Bisco Misr Petit Beurre 100g,6221088056001,qr/p057.png,9,Pack,5.0,9.5,35,Butter biscuits 100g - Bisco Misr,2024-01-23 09:05:00
+58,Breadfast Whole Wheat Loaf 400g,6221089057001,qr/p058.png,9,Loaf,12.0,22.0,20,Whole wheat sliced bread 400g,2024-01-23 09:10:00
+59,Koki Fresh Chicken Breast 1kg,6221090058001,qr/p059.png,10,Kg,80.0,145.0,10,Fresh boneless chicken breast 1kg,2024-01-24 09:00:00
+60,Americana Beef Burger 400g,6221091059001,qr/p060.png,10,Pack,60.0,110.0,10,Frozen beef burger patties 4-pack 400g,2024-01-24 09:05:00

@@ -1,0 +1,2 @@
+cd "C:\Users\Pc World\Desktop\M5zany-Ai - Copy\SmartStock_Unified" 
+ .\mvnw.cmd clean javafx:run   

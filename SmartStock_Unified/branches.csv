@@ -1,0 +1,7 @@
+branch_id,name,address,phone,manager_id,created_at
+1,Cairo - Tahrir,"12 Tahrir Square, Downtown Cairo",0222345678,2,2024-01-10 09:00:00
+2,Cairo - Nasr City,"45 Abbas El Akkad St, Nasr City",0221234567,5,2024-02-01 10:00:00
+3,Alexandria - Smouha,"88 Victor Emanuel St, Smouha Alex",0322987654,8,2024-03-15 08:30:00
+4,Giza - Haram,"15 Pyramids Rd, Haram, Giza",0233456789,11,2024-04-01 09:00:00
+5,Cairo - Maadi,"77 Road 9, Maadi, Cairo",0222765432,14,2024-05-10 10:00:00
+6,Cairo - Heliopolis,"33 Merghany St, Heliopolis",0222543210,17,2024-06-01 09:30:00

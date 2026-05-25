@@ -1,0 +1,6 @@
+{
+  "name": "SmartStock ERP (M5zany)",
+  "description": "Inventory & QR Code System with computer vision scanner for retail management.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

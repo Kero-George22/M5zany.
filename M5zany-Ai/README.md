@@ -1,0 +1,109 @@
+# SmartStock ERP (M5zany)
+
+SmartStock ERP is a comprehensive, modern **Multi-Branch Retail Management System** built with Java and JavaFX. It is designed to handle product inventory, sales, stock transfers, reporting, and AI-driven business intelligence.
+
+## 🚀 Technologies Used
+
+The project leverages a robust technology stack to ensure performance, security, and a premium user experience:
+
+* **Core Language:** Java 21
+* **UI Framework:** JavaFX 21
+* **Modern UI Libraries:** 
+  * [MaterialFX](https://github.com/palexdev/MaterialFX) & [AtlantaFX](https://mkpaz.github.io/atlantafx/) for sleek, modern theming and controls.
+  * [ControlsFX](https://controlsfx.github.io/) for additional UI components.
+  * [Ikonli](https://kordamp.org/ikonli/) (Material Design 2) for scalable icons.
+* **Database:** MySQL 8.0 
+* **Connection Pooling:** HikariCP for high-performance database connection management.
+* **Security:** jBCrypt for secure password hashing.
+* **Exporting & Reporting:**
+  * Apache PDFBox (for PDF generation)
+  * Apache POI (for Excel exporting)
+* **Utilities:**
+  * ZXing (for QR Code generation)
+  * Gson & Apache HttpClient 5 (for REST API calls and AI Service integrations)
+* **Build Tool:** Maven
+
+---
+
+## 📁 Project Structure & Architecture
+
+The application strictly follows the **MVC (Model-View-Controller)** architectural pattern combined with a **DAO (Data Access Object)** layer for clean separation of concerns.
+
+### Directory Layout
+
+```text
+ERP-main/
+├── database/            # Contains schema.sql for setting up the MySQL database tables
+├── src/main/java/com/smartstock/
+│   ├── controller/      # UI Controllers (Handles user interactions and links View with Logic)
+│   ├── dao/             # Data Access Objects (Contains all SQL queries and DB interactions)
+│   ├── model/           # Data Entities (POJOs representing Users, Products, Branches, etc.)
+│   ├── service/         # Business Logic (e.g., AIService for generating smart insights)
+│   ├── thread/          # Background Tasks (e.g., Scheduled tasks like WeeklyReportTask)
+│   ├── util/            # Helper Classes (EnvHelper, DB connection management, formatters)
+│   └── Main.java        # Application Entry Point
+├── pom.xml              # Maven dependencies and build configuration
+└── .env                 # Environment variables (Database credentials, API keys)
+```
+
+### Where is the Logic?
+
+1. **User Interface Logic (`/controller`):** 
+   All JavaFX controllers live here. They handle button clicks, form validation, UI state updates, and passing data between the UI and the backend. Examples include `ProductManagementController`, `StockTransferController`, etc.
+
+2. **Database Logic (`/dao`):**
+   Any code that interacts with the database (CRUD operations) is isolated in Data Access Objects. If you need to write a `SELECT`, `INSERT`, `UPDATE`, or `DELETE` statement, it belongs here (e.g., `AlertDAO`, `ProductDAO`).
+
+3. **Core Business Logic (`/service` & `/thread`):**
+   Heavy business operations, API calls, and scheduled background tasks are placed here. For example, `AIService` communicates with the AI API to generate insights, and `WeeklyReportTask` (in `/thread`) polls the system to generate automated reports on a schedule.
+
+4. **Data Structures (`/model`):**
+   Plain Java objects representing the database tables. Used to pass data cleanly between the DAO layer and the Controllers.
+
+5. **Configurations (`/util` & `.env`):**
+   `EnvHelper` reads the `.env` file for dynamic configuration (like DB URLs and API Keys), preventing hardcoded secrets in the code.
+
+---
+
+## ⚙️ Getting Started
+
+### Prerequisites
+* Java Development Kit (JDK) 21
+* Maven
+* MySQL Server 8.0+
+
+### Setup Instructions
+
+1. **Database Setup:**
+   * Create a new database in MySQL.
+   * Run the SQL script located at `database/schema.sql` to generate the required tables.
+   
+2. **Environment Variables:**
+   * Ensure the `.env` file in the root directory is populated with your specific configurations:
+     ```env
+     DB_URL=jdbc:mysql://localhost:3306/your_db_name
+     DB_USER=root
+     DB_PASSWORD=your_password
+     AI_API_KEY=your_api_key_here
+     ```
+
+3. **Build and Run:**
+   * Open the project in your preferred IDE (IntelliJ IDEA, Eclipse, or VS Code).
+   * Reload the Maven project to download all dependencies listed in `pom.xml`.
+   * Run `Main.java` to start the application.
+
+---
+
+## 🎨 UI/UX Design
+
+This project recently transitioned to the "M5zany" design language. It uses a cohesive, modern aesthetic with global CSS variables for dark/light mode consistency. The user interfaces feature side-by-side widget configurations, robust validation, and dynamic data representation to provide a premium user experience.
+
+## 🤖 AI Integration
+
+SmartStock ERP features a built-in **AI Intelligence Feed**. It acts as a manual/automated hybrid reporting engine that analyzes:
+* Branch health and performance.
+* Expiring and expired products.
+* Inventory valuation and prioritization.
+* Restocking recommendations.
+
+The AI logic is driven by robust prompts and scheduled tasks to keep business owners informed with actionable Arabic reports.

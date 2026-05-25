@@ -1,0 +1,4 @@
+role_id,role_name,description
+1,Admin,Full system access across all branches
+2,Branch Manager,"Manages one branch, views branch reports"
+3,Cashier,"POS access only, no reports"
